@@ -47,8 +47,8 @@ const HomeHeroSection = () => {
       </section>
 
       {/* Search Bar — sits BELOW the hero on mobile, overlaps on md+ */}
-      <div className="relative z-30 w-full bg-transparent -mt-18 md:-mt-7 px-5 sm:px-7 md:px-12 py-4 md:py-0">
-        <div className="max-w-7xl mx-auto">
+      <div className="relative z-30 w-full bg-transparent -mt-18 md:-mt-7  py-4 md:py-0">
+        <div className="max-w-7xl mx-auto px-5 sm:px-7 md:px-12">
           <div className="flex flex-col md:flex-row items-stretch md:items-center bg-white rounded-sm shadow-md md:shadow-lg overflow-visible">
 
             {/* Destination */}

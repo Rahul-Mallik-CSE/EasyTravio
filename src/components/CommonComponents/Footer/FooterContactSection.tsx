@@ -5,8 +5,8 @@ import { LiaPhoneVolumeSolid } from "react-icons/lia";
 
 const FooterContactSection = () => {
   return (
-    <div className="w-full bg-[#D9D9D9] px-4 md:px-6 lg:px-8 py-4">
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row flex-wrap items-center justify-between gap-3 text-[12.5px] text-gray-600">
+    <div className="w-full bg-[#D9D9D9] py-4">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col sm:flex-row flex-wrap items-center justify-between gap-3 text-[12.5px] text-gray-600">
 
         {/* Copyright */}
         <div className="flex items-center gap-1.5">

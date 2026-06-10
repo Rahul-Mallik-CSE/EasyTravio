@@ -60,8 +60,8 @@ const columns = [
 
 const FooterLinksSection = () => {
   return (
-    <div className="w-full bg-transparent px-4 md:px-6 lg:px-8 pt-10 pb-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="w-full bg-transparent pt-10 pb-6">
+      <div className="max-w-7xl px-4 md:px-6 lg:px-8 mx-auto">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
           {columns.map((col) => (
             <FooterLinkColumn

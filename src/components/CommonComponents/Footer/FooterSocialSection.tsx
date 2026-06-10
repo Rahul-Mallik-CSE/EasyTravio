@@ -17,8 +17,8 @@ const socialLinks = [
 
 const FooterSocialSection = () => {
   return (
-    <div className="w-full bg-transparent px-6 md:px-12 lg:px-20 py-6">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-0 lg:justify-between">
+    <div className="w-full bg-transparent py-6">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-0 lg:justify-between">
 
         {/* Payment methods */}
         <div className="flex items-center gap-3 flex-wrap">

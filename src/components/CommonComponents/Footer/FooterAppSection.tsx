@@ -5,8 +5,8 @@ import { FaGooglePlay } from "react-icons/fa";
 
 const FooterAppSection = () => {
   return (
-    <div className="w-full bg-transparent px-4 md:px-6 lg:px-8 py-8">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    <div className="w-full bg-transparent py-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         {/* Left: text content */}
         <div className="flex flex-col gap-0.5 max-w-xl">
           <h2 className="text-lg md:text-xl font-bold text-theme leading-snug">
