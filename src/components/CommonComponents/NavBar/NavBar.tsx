@@ -88,37 +88,43 @@ const NavBar = () => {
         </div>
       </nav>
 
-      {/* Mobile menu drawer */}
+      {/* Mobile popup menu */}
       {mobileOpen && (
-        <div className="sm:hidden border-t border-gray-200 bg-white">
-          <div className="px-4 py-4 flex flex-col gap-3">
+        <div className="sm:hidden fixed inset-x-0 top-0 z-50 bg-black/40 backdrop-blur-[2px]" onClick={() => setMobileOpen(false)}>
+          <div
+            className="w-full border-b border-border bg-background px-4 py-4 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 relative">
-                  <Image src="/logo.png" alt="EasyTravio" fill sizes="40px" style={{ objectFit: "contain" }} />
-                </div>
-                <div className="font-semibold text-blue-600">EasyTravio</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button className="py-2 px-4 rounded-md border border-blue-400 text-blue-600">Sing In</button>
-                <button className="py-2 px-4 rounded-md border border-blue-400 text-blue-600">Register</button>
-              </div>
+              
+
+              <button
+                onClick={() => setMobileOpen(false)}
+                aria-label="close menu"
+                className="flex ml-auto cursor-pointer h-6 w-6 items-center justify-center rounded-full border border-border text-foreground"
+              >
+                ×
+              </button>
             </div>
 
-            <div>
-              <input
-                type="search"
-                placeholder="Search"
-                className="w-full border border-gray-200 rounded-md py-3 pl-4 pr-4 text-gray-600 placeholder-gray-400"
-              />
-            </div>
+            <div className="mt-4 flex flex-col gap-3">
+              <button className="w-full cursor-pointer rounded-xl border border-theme px-4 py-1.5 font-semibold text-theme">Sing In</button>
+              <button className="w-full cursor-pointer rounded-xl border border-theme bg-background px-4 py-1.5 font-semibold text-theme">Register</button>
 
-            <div className="flex flex-wrap gap-3">
-              {pills.map((p) => (
-                <button key={p} className={`px-4 py-2 rounded-full border ${p === "Hotel" ? "bg-blue-600 text-white" : "bg-white text-gray-600 border-gray-300"}`}>
-                  {p}
-                </button>
-              ))}
+              <div className="grid grid-cols-2 gap-3">
+                {pills.map((p) => {
+                  const active = p === "Hotel"
+
+                  return (
+                    <button
+                      key={p}
+                      className={`rounded-full cursor-pointer border px-4 py-1.5 text-sm font-medium ${active ? "border-theme bg-theme text-white" : "border-border bg-white text-secondary"}`}
+                    >
+                      {p}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
           </div>
         </div>
