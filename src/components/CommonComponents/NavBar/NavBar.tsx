@@ -72,7 +72,7 @@ const NavBar = () => {
       {/* Pills row */}
       <nav className="pt-2 pb-6 hidden sm:block">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-6 flex-wrap">
+          <div className="flex items-center justify-center gap-4 lg:gap-6 flex-wrap">
             {pills.map((p) => {
               const active = p === "Hotel"
               return (

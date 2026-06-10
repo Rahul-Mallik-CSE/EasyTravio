@@ -39,15 +39,15 @@ const HomeHeroSection = () => {
         <div className="absolute inset-0 bg-black/30 z-10" />
 
         {/* Headline */}
-        <div className="max-w-7xl mx-auto relative z-20 h-full flex items-center px-5 sm:px-7 md:px-12">
-          <h1 className="text-white text-2xl sm:text-[2rem] md:text-[2.6rem] font-extrabold leading-tight tracking-tight drop-shadow-md">
+        <div className="max-w-7xl mx-auto relative z-20 h-full flex items-end pb-20 md:pb-14 px-5 sm:px-7 md:px-12">
+          <h1 className="text-white text-2xl sm:text-4xl md:text-[44px] font-extrabold leading-tight tracking-tight drop-shadow-md">
             Discover Your Trip<br />Worldwide !
           </h1>
         </div>
       </section>
 
       {/* Search Bar — sits BELOW the hero on mobile, overlaps on md+ */}
-      <div className="relative z-30 w-full bg-gray-50 md:bg-transparent md:-mt-7 px-5 sm:px-7 md:px-12 py-4 md:py-0">
+      <div className="relative z-30 w-full bg-transparent -mt-18 md:-mt-7 px-5 sm:px-7 md:px-12 py-4 md:py-0">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-stretch md:items-center bg-white rounded-sm shadow-md md:shadow-lg overflow-visible">
 
