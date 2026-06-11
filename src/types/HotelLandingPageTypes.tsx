@@ -16,6 +16,5 @@ export interface HotelDestinationCardData {
 	subtitle: string
 	image: string
 	categoryKeys: HotelHeroTabKey[]
-	featuredLabel?: string
 	desktopClassName: string
 }

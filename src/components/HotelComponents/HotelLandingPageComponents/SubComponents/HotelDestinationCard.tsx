@@ -10,18 +10,23 @@ interface HotelDestinationCardProps {
 const HotelDestinationCard = ({ card, mobile = false }: HotelDestinationCardProps) => {
   return (
     <article
-      className={`relative overflow-hidden rounded-[14px] border border-white/70 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] ${
-        mobile ? 'w-full' : 'w-[320px] sm:w-[340px]'
+      className={`relative overflow-visible rounded-sm border border-white/70 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] ${
+        mobile ? 'w-full' : 'max-w-[320px] sm:max-w-85'
       }`}
     >
-      {card.featuredLabel && (
-        <div className="absolute left-[-34px] top-5 z-10 -rotate-45 bg-[#2a7ca6] px-10 py-1.5 text-[0.8rem] font-medium tracking-wide text-white shadow-md">
-          {card.featuredLabel}
-        </div>
-      )}
+     
 
-      <div className={`flex ${mobile ? 'gap-3 p-3' : 'gap-4 p-4'}`}>
-        <div className={`relative shrink-0 overflow-hidden rounded-[10px] ${mobile ? 'h-20 w-20' : 'h-24 w-24 sm:h-28 sm:w-28'}`}>
+      <div className="absolute -top-3 -left-3.5  z-10">
+        <Image
+          src="/images/Tag.png"
+          alt="Featured"
+          width={100}
+          height={50}
+        />
+      </div>
+
+      <div className={`flex ${mobile ? 'gap-3 p-1' : 'gap-2 p-2 pr-4'}`}>
+        <div className={`relative shrink-0 overflow-hidden rounded-[10px] ${mobile ? 'h-20 w-20' : 'h-18 w-18 sm:h-24 sm:w-31'}`}>
           <Image src={card.image} alt={card.title} fill sizes="112px" className="object-cover object-center" />
         </div>
 

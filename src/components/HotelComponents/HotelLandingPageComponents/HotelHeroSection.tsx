@@ -20,9 +20,8 @@ const cards: HotelDestinationCardData[] = [
     title: 'Belgium',
     subtitle: 'Bruxelles Gare Du Midi',
     image: '/HotelImages/LandingPageImages/HotelHeroImages/Belgium.png',
-    featuredLabel: 'Best Deals',
     categoryKeys: ['special-offers', 'highest-reviewed', 'top-rated'],
-    desktopClassName: 'left-6 top-8 md:left-10 md:top-8',
+    desktopClassName: 'left-4 top-4 md:left-6 md:top-4',
   },
   {
     id: 2,
@@ -30,7 +29,7 @@ const cards: HotelDestinationCardData[] = [
     subtitle: 'Bunk',
     image: '/HotelImages/LandingPageImages/HotelHeroImages/Amsterdam.png',
     categoryKeys: ['special-offers', 'last-search', 'trending-destinations'],
-    desktopClassName: 'right-6 top-16 md:right-10 md:top-16',
+    desktopClassName: 'right-4 top-6 md:right-6 md:top-6',
   },
   {
     id: 3,
@@ -38,7 +37,7 @@ const cards: HotelDestinationCardData[] = [
     subtitle: 'Windsor',
     image: '/HotelImages/LandingPageImages/HotelHeroImages/NewJersey.png',
     categoryKeys: ['special-offers', 'last-search', 'top-rated'],
-    desktopClassName: 'left-6 bottom-8 md:left-8 md:bottom-10',
+    desktopClassName: 'left-6 bottom-24 md:left-8 md:bottom-30',
   },
   {
     id: 4,
@@ -46,7 +45,7 @@ const cards: HotelDestinationCardData[] = [
     subtitle: 'Hyatt Regency K',
     image: '/HotelImages/LandingPageImages/HotelHeroImages/Nepal.png',
     categoryKeys: ['special-offers', 'last-search', 'highest-reviewed'],
-    desktopClassName: 'left-1/2 top-1/2 md:left-1/2 md:top-[48%] -translate-x-1/2 -translate-y-1/2',
+    desktopClassName: 'left-1/2 top-1/2 md:left-1/2 md:top-[38%] -translate-x-1/2 -translate-y-1/2',
   },
   {
     id: 5,
@@ -54,7 +53,7 @@ const cards: HotelDestinationCardData[] = [
     subtitle: 'First Hotel G',
     image: '/HotelImages/LandingPageImages/HotelHeroImages/Gothenburg.png',
     categoryKeys: ['special-offers', 'trending-destinations', 'highest-reviewed'],
-    desktopClassName: 'right-8 bottom-8 md:right-14 md:bottom-10',
+    desktopClassName: 'right-8 bottom-8 md:right-14 md:bottom-34',
   },
 ]
 
@@ -103,61 +102,62 @@ const HotelHeroSection = () => {
             </div>
           </div>
 
-          <div className="absolute inset-x-0 bottom-0 px-4 pb-12 sm:px-6  md:px-10 ">
+          <div className="absolute inset-x-0 bottom-0 px-4 pb-24 sm:px-6  md:px-10 ">
             <h1 className="text-center text-4xl sm:text-5xl md:text-[60px] font-light tracking-tight text-white drop-shadow-[0_6px_22px_rgba(0,0,0,0.45)]">
               Exclusive Hotel Search!
             </h1>
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-2 sm:py-4 md:py-8 relative z-10 -mt-4 sm:-mt-6 md:-mt-8">
+        <div className="relative z-20 mx-auto max-w-7xl px-4 -mt-4 sm:px-6 sm:-mt-6 md:px-8 md:-mt-8 lg:-mt-12">
           <HotelHeroTabs tabs={tabs} activeTab={activeTab} onTabChange={(key) => setActiveTab(key as HotelHeroTabKey)} />
         </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative overflow-hidden rounded-b-[20px] md:rounded-b-[28px] bg-[#004d5d] shadow-[0_18px_50px_rgba(0,0,0,0.16)]">
-          <div className=" relative min-h-[540px] px-4 py-4 sm:px-6 sm:py-6 md:min-h-[640px] md:px-8 md:py-8">
-            <div className="absolute inset-0 hidden md:block">
-              <Image
-                src="/HotelImages/LandingPageImages/HotelHeroImages/HotelHeroGlobal.png"
-                alt="Global view background"
-                fill
-                sizes="100vw"
-                className="object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-[#004d5d]/20" />
-            </div>
-
-            <div className="relative z-10 md:hidden">
-              <div className="relative mb-4 h-44 overflow-hidden rounded-[18px] bg-[#004d5d] sm:h-52">
+        <div className="max-w-7xl mx-auto">
+          <div className="mx-4 sm:mx-6 md:mx-8 relative overflow-hidden rounded-b-sm  bg-[#004d5d] shadow-[0_18px_50px_rgba(0,0,0,0.16)]">
+            <div className=" relative min-h-86 px-4 py-4 sm:px-6 sm:py-6 sm:min-h-96 md:h-124.5 md:px-8 md:py-8">
+              <div className="absolute inset-0 hidden md:block">
                 <Image
                   src="/HotelImages/LandingPageImages/HotelHeroImages/HotelHeroGlobal.png"
                   alt="Global view background"
                   fill
                   sizes="100vw"
-                  className="object-cover object-center opacity-85"
+                  className="object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-[#004d5d]/55" />
-                <div className="absolute inset-0 flex items-end p-4">
-                  <div>
-                    <p className="text-[0.8rem] font-semibold uppercase tracking-[0.24em] text-white/80">Global view</p>
-                    <h2 className="mt-1 text-[1.3rem] font-extrabold text-white">Discover top hotel destinations</h2>
+                <div className="absolute inset-0 bg-[#004d5d]/20" />
+              </div>
+
+              <div className="relative z-10 md:hidden">
+                <div className="relative mb-4 h-44 overflow-hidden rounded-[18px] bg-[#004d5d] sm:h-52">
+                  <Image
+                    src="/HotelImages/LandingPageImages/HotelHeroImages/HotelHeroGlobal.png"
+                    alt="Global view background"
+                    fill
+                    sizes="100vw"
+                    className="object-cover object-center opacity-85"
+                  />
+                  <div className="absolute inset-0 bg-[#004d5d]/55" />
+                  <div className="absolute inset-0 flex items-end p-4">
+                    <div>
+                      <p className="text-[0.8rem] font-semibold uppercase tracking-[0.24em] text-white/80">Global view</p>
+                      <h2 className="mt-1 text-[1.3rem] font-extrabold text-white">Discover top hotel destinations</h2>
+                    </div>
                   </div>
                 </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 ">
+                  {visibleCards.map((card) => (
+                    <HotelDestinationCard key={card.id} card={card} mobile />
+                  ))}
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="relative z-10 hidden md:block min-h-140">
                 {visibleCards.map((card) => (
-                  <HotelDestinationCard key={card.id} card={card} mobile />
+                  <div key={card.id} className={`absolute ${card.desktopClassName}`}>
+                    <HotelDestinationCard card={card} />
+                  </div>
                 ))}
               </div>
-            </div>
-
-            <div className="relative z-10 hidden md:block min-h-[560px]">
-              {visibleCards.map((card) => (
-                <div key={card.id} className={`absolute ${card.desktopClassName}`}>
-                  <HotelDestinationCard card={card} />
-                </div>
-              ))}
             </div>
           </div>
         </div>
