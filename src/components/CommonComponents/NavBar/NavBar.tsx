@@ -1,28 +1,47 @@
 "use client"
 import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import React, { useState } from "react"
 import { CiSearch } from "react-icons/ci"
 import { GiHamburgerMenu } from "react-icons/gi"
 
 const NavBar = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const pathname = usePathname()
 
-  const pills = ["Trip", "%Deals", "Hotel", "Flight", "Apartment", "Camper"]
+  const pills = [
+    { label: 'Trip', href: '#trip' },
+    { label: '%Deals', href: '#deals' },
+    { label: 'Hotel', href: '/hotel' },
+    { label: 'Flight', href: '/flight' },
+    { label: 'Apartment', href: '#apartment' },
+    { label: 'Camper', href: '#camper' },
+  ]
+
+  const isActivePill = (href: string) => {
+    if (href === '/hotel') return pathname?.startsWith('/hotel') ?? false
+    if (href === '/flight') return pathname?.startsWith('/flight') ?? false
+    return false
+  }
+
+  const pillClassName = (active: boolean) =>
+    `px-4 py-1 cursor-pointer rounded-full border transition-colors ${active ? 'bg-theme text-white border-theme shadow' : 'bg-white text-secondary border-border hover:border-theme hover:text-theme'}`
 
   return (
-    <header className="w-full bg-white border-b border-gray-200">
+    <header className="w-full border-b border-border bg-background z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Left: logo + small icons */}
           <div className="flex items-center gap-4">
-            <div className=" items-center gap-3">
+            <Link href="/" className=" items-center gap-3">
               <div className="w-10 h-10 relative mx-auto">
                 <Image src="/logo.png" alt="EasyTravio" fill sizes="48px" style={{ objectFit: "contain" }} />
               </div>
               <div className="hidden sm:block">
                 <div className="text-theme font-bold text-base">EasyTravio</div>
               </div>
-            </div>
+            </Link>
 
             <div className="hidden sm:flex items-center gap-3">
               <button aria-label="help" className="w-5 h-5 font-bold rounded-full flex items-center justify-center border border-theme text-theme">?</button>
@@ -73,15 +92,12 @@ const NavBar = () => {
       <nav className="pt-2 pb-6 hidden sm:block">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-4 lg:gap-6 flex-wrap">
-            {pills.map((p) => {
-              const active = p === "Hotel"
+            {pills.map((pill) => {
+              const active = isActivePill(pill.href)
               return (
-                <button
-                  key={p}
-                  className={`px-4 py-1 cursor-pointer rounded-full border ${active ? "bg-theme text-white border-theme shadow" : "bg-white text-secondary border-border"}`}
-                >
-                  {p}
-                </button>
+                <Link key={pill.label} href={pill.href} className={pillClassName(active)}>
+                  {pill.label}
+                </Link>
               )
             })}
           </div>
@@ -112,16 +128,18 @@ const NavBar = () => {
               <button className="w-full cursor-pointer rounded-xl border border-theme bg-background px-4 py-1.5 font-semibold text-theme">Register</button>
 
               <div className="grid grid-cols-2 gap-3">
-                {pills.map((p) => {
-                  const active = p === "Hotel"
+                {pills.map((pill) => {
+                  const active = isActivePill(pill.href)
 
                   return (
-                    <button
-                      key={p}
-                      className={`rounded-full cursor-pointer border px-4 py-1.5 text-sm font-medium ${active ? "border-theme bg-theme text-white" : "border-border bg-white text-secondary"}`}
+                    <Link
+                      key={pill.label}
+                      href={pill.href}
+                      className={`rounded-full cursor-pointer border px-4 py-1.5 text-sm font-medium text-center transition-colors ${active ? 'border-theme bg-theme text-white' : 'border-border bg-white text-secondary hover:border-theme hover:text-theme'}`}
+                      onClick={() => setMobileOpen(false)}
                     >
-                      {p}
-                    </button>
+                      {pill.label}
+                    </Link>
                   )
                 })}
               </div>
