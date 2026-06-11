@@ -1,9 +1,10 @@
+import HotelHeroSection from '@/components/HotelComponents/HotelLandingPageComponents/HotelHeroSection'
 import React from 'react'
 
 const page = () => {
   return (
-    <div>
-      <h1>This is hotel booking page</h1>
+    <div className="w-full min-h-screen bg-transparent">
+      <HotelHeroSection />
     </div>
   )
 }

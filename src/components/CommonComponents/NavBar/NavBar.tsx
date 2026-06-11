@@ -29,7 +29,7 @@ const NavBar = () => {
     `px-4 py-1 cursor-pointer rounded-full border transition-colors ${active ? 'bg-theme text-white border-theme shadow' : 'bg-white text-secondary border-border hover:border-theme hover:text-theme'}`
 
   return (
-    <header className="w-full border-b border-border bg-background z-50">
+    <header className="w-full bg-background z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Left: logo + small icons */}
