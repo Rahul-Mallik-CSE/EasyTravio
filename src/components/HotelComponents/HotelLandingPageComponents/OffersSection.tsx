@@ -9,7 +9,7 @@ const OffersSection = () => {
   const { sectionTitle, offers } = offersSectionData
 
   return (
-    <section className="w-full py-2 sm:py-4 md:py-8 bg-background">
+    <section className="w-full py-2 sm:py-4 md:py-6 bg-background">
         <div className="max-w-7xl px-4 sm:px-6 md:px-8  mx-auto ">
             <h2 className="text-2xl md:text-[32px] font-extrabold text-primary mb-4 md:mb-6">
                 {sectionTitle}

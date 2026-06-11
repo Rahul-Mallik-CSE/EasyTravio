@@ -1,3 +1,4 @@
+import ComprasionSection from '@/components/HotelComponents/HotelLandingPageComponents/ComprasionSection'
 import HotelHeroSection from '@/components/HotelComponents/HotelLandingPageComponents/HotelHeroSection'
 import OffersSection from '@/components/HotelComponents/HotelLandingPageComponents/OffersSection'
 import React from 'react'
@@ -8,6 +9,8 @@ const page = () => {
       <HotelHeroSection />
 
       <OffersSection />
+
+      <ComprasionSection />
     </div>
   )
 }

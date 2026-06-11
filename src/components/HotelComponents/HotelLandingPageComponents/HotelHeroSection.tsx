@@ -74,7 +74,7 @@ const HotelHeroSection = () => {
   )
 
   return (
-    <section className="w-full bg-background py-2 sm:py-4 md:py-8">
+    <section className="w-full bg-background py-2 sm:py-4 md:py-6">
       <div className="mx-auto w-full ">
         <div className="relative overflow-hidden h-100 sm:h-120 md:h-166 shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
           <Image

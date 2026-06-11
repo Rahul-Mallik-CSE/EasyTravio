@@ -4,7 +4,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 
 const InspirationSection = () => {
   return (
-    <section className="relative w-full h-80 sm:h-100 md:h-128 my-1 md:my-4">
+    <section className="relative w-full h-80 sm:h-100 md:h-128 my-2 sm:my-4 md:my-6">
 
         {/* Background Image */}
         <div

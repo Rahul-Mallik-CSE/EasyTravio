@@ -5,7 +5,7 @@ import TrendingCard from "./SubComponents/TrendingCard";
 
 const TrendingSection = () => {
   return (
-    <section className="w-full bg-background py-2 sm:py-4 md:py-8">
+    <section className="w-full bg-background py-2 sm:py-4 md:py-6">
       <div className="max-w-7xl  mx-auto px-4 sm:px-6 md:px-8">
         {/* Section Header */}
         <div className="mb-6">
