@@ -1,5 +1,7 @@
-import { TrendingDestination } from "../types/HomePageTypes";
+import { PastOffer, TrendingDestination } from "../types/HomePageTypes";
 
+
+//trending section data
 export const trendingDestinations: TrendingDestination[] = [
   {
     id: 1,
@@ -121,4 +123,16 @@ export const trendingDestinations: TrendingDestination[] = [
     rating: 8.2,
     isFavorited: true,
   },
+];
+
+//past offers section data
+export const pastOffers: PastOffer[] = [
+  { id: 1, type: "Flight",      image: "/HomePageImages/PastOffersImages/Flight.png",      reviewCount: 123, rating: 8.2 },
+  { id: 2, type: "Location",    image: "/HomePageImages/PastOffersImages/Location.png",    reviewCount: 123, rating: 8.2 },
+  { id: 3, type: "Hotel",       image: "/HomePageImages/PastOffersImages/Hotel.png",       reviewCount: 123, rating: 8.2 },
+  { id: 4, type: "Package",     image: "/HomePageImages/PastOffersImages/Package.png",     reviewCount: 123, rating: 8.2 },
+  { id: 5, type: "Seasonal",    image: "/HomePageImages/PastOffersImages/Seasonal.png",    reviewCount: 123, rating: 8.2 },
+  { id: 6, type: "Camps",       image: "/HomePageImages/PastOffersImages/Camps.png",       reviewCount: 123, rating: 8.2 },
+  { id: 7, type: "Backpacking", image: "/HomePageImages/PastOffersImages/Backpacking.png", reviewCount: 123, rating: 8.2 },
+  { id: 8, type: "Hostels",     image: "/HomePageImages/PastOffersImages/Hostels.png",     reviewCount: 123, rating: 8.2 },
 ];

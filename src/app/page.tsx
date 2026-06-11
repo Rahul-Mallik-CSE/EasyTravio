@@ -1,9 +1,10 @@
 
 import HomeHeroSection from "@/components/HomeComponents/HomeHeroSection";
 import InspirationSection from "@/components/HomeComponents/InspirationSection";
+import PastOffersSection from "@/components/HomeComponents/PastOffersSection";
 import SpecialOfferSection from "@/components/HomeComponents/SpecialOfferSection";
 import TrendingSection from "@/components/HomeComponents/TrendingSection";
-import Image from "next/image";
+
 
 export default function Home() {
   return (
@@ -13,6 +14,8 @@ export default function Home() {
         <SpecialOfferSection />
 
         <TrendingSection />
+
+        <PastOffersSection />
 
         <InspirationSection />
       

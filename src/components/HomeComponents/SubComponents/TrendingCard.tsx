@@ -3,7 +3,7 @@
 import { TrendingDestination } from "@/types/HomePageTypes";
 import Image from "next/image";
 import React, { useState } from "react";
-import { FaRegHeart, FaStar } from "react-icons/fa";
+import { FaRegHeart } from "react-icons/fa";
 import { LuSunDim } from "react-icons/lu";
 
 interface TrendingCardProps {
@@ -59,7 +59,7 @@ const TrendingCard: React.FC<TrendingCardProps> = ({ destination }) => {
       </div>
 
       {/* Card Body */}
-      <div className="p-4 flex flex-col  flex-1">
+      <div className="py-4 flex flex-col  flex-1">
         <h3 className="text-lg md:text-xl font-extrabold text-primary leading-tight">{destination.city}</h3>
         <p className="text-sm md:text-base font-bold text-secondary uppercase tracking-wide">{destination.category}</p>
         <p className="text-[10px] md:text-xs font-semibold text-primary mt-2">{destination.dateRange}</p>
