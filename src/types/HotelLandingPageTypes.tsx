@@ -18,3 +18,15 @@ export interface HotelDestinationCardData {
 	categoryKeys: HotelHeroTabKey[]
 	desktopClassName: string
 }
+
+//Offers Section Types
+export interface OfferItem {
+  label: string
+  image: string
+  spanClassName: string
+}
+
+export interface OffersSectionData {
+  sectionTitle: string
+  offers: OfferItem[]
+}
