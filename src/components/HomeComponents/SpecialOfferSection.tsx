@@ -47,7 +47,7 @@ const filterTabs = ['All', 'Hotels', 'Flights', 'Multi']
 
 const SpecialOfferSection = () => {
   return (
-    <section className="w-full bg-background py-2 sm:py-6 md:py-12">
+    <section className="w-full bg-background py-2 sm:py-4 sm:pt-6 md:pt-12 md:py-8">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 ">
         <div className="mb-4 sm:mb-5 md:mb-6">
            {/* Section Title */}
