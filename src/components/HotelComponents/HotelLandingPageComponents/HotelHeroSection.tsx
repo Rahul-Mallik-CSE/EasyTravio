@@ -52,7 +52,7 @@ const HotelHeroSection = () => {
           </div>
         </div>
 
-        <div className="relative z-20 mx-auto max-w-7xl px-4 -mt-4 sm:px-6 sm:-mt-6 md:px-8 md:-mt-8 lg:-mt-12">
+        <div className="relative z-20 mx-auto max-w-7xl px-4 -mt-4 sm:px-6 sm:-mt-6 md:px-8 md:-mt-10 lg:-mt-12">
           <HotelHeroTabs tabs={tabs} activeTab={activeTab} onTabChange={(key) => setActiveTab(key as HotelHeroTabKey)} />
         </div>
         <div className="max-w-7xl mx-auto">
