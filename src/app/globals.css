@@ -13,6 +13,8 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-tertiary: var(--tertiary);
   --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-quaternary: var(--quaternary);
+  --color-quaternary-foreground: var(--quaternary-foreground);
   --color-royal-blue: var(--royal-blue);
   --color-theme: var(--theme);
   --color-secondary-background: var(--secondary-background);
@@ -64,6 +66,8 @@
   --foreground: #000000;
   --tertiary: #4b4b4b;
   --tertiary-foreground: #ffffff;
+  --quaternary: #565656;
+  --quaternary-foreground: #ffffff;
   --card: #ffffff;
   --card-foreground: #000000;
   --card-border:#D9D9D9;

@@ -5,7 +5,7 @@ import OffersSection from '@/components/HotelComponents/HotelLandingPageComponen
 import ReviewSection from '@/components/HotelComponents/HotelLandingPageComponents/ReviewSection'
 import React from 'react'
 
-const page = () => {
+const HotelPage = () => {
   return (
     <div className="w-full min-h-screen bg-transparent">
       <HotelHeroSection />
@@ -21,4 +21,4 @@ const page = () => {
   )
 }
 
-export default page
+export default HotelPage
