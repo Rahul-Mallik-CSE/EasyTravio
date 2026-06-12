@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { FaRegBuilding, FaAngleDown, FaStar } from 'react-icons/fa'
+import { FaRegBuilding, FaStar } from 'react-icons/fa'
 import { LuCalendarDays } from 'react-icons/lu'
 import { FiUserPlus } from 'react-icons/fi'
 import { Button } from '@/components/ui/button'
