@@ -35,7 +35,9 @@ const OffersSection = () => {
                     {/* Button */}
                     <div className="absolute bottom-4 left-4">
                     <Button
-                        className="bg-theme hover:bg-theme/80 text-white text-sm md:text-base font-medium px-4 py-2 rounded-md flex items-center gap-2 shadow-md"
+                        className="bg-theme hover:bg-theme/80 text-white 
+                                    text-sm md:text-base font-medium px-4 py-2 
+                                    rounded-md flex items-center gap-2 shadow-md"
                     >
                         {offer.label}
                         <ArrowRight className="w-4 h-4" />
