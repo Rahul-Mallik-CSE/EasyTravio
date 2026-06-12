@@ -4,66 +4,9 @@ import Image from 'next/image'
 import React, { useMemo, useState } from 'react'
 import HotelHeroTabs from './SubComponents/HotelHeroTabs'
 import HotelDestinationCard from './SubComponents/HotelDestinationCard'
-import type { HotelDestinationCardData, HotelHeroTab, HotelHeroTabKey } from '@/types/HotelLandingPageTypes'
+import type {  HotelHeroTabKey } from '@/types/HotelLandingPageTypes'
+import { cards, mapByTab, tabs } from '@/data/HotelLandingPageData'
 
-const tabs: HotelHeroTab[] = [
-  { key: 'special-offers', label: 'Special Offers' },
-  { key: 'last-search', label: 'Last Search' },
-  { key: 'trending-destinations', label: 'Trending Destinations' },
-  { key: 'highest-reviewed', label: 'Highest Reviewed' },
-  { key: 'top-rated', label: 'Top Rated' },
-]
-
-const cards: HotelDestinationCardData[] = [
-  {
-    id: 1,
-    title: 'Belgium',
-    subtitle: 'Bruxelles Gare Du Midi',
-    image: '/HotelImages/LandingPageImages/HotelHeroImages/Belgium.png',
-    categoryKeys: ['special-offers', 'highest-reviewed', 'top-rated'],
-    desktopClassName: 'left-4 top-4 md:left-6 md:top-4',
-  },
-  {
-    id: 2,
-    title: 'Amsterdam',
-    subtitle: 'Bunk',
-    image: '/HotelImages/LandingPageImages/HotelHeroImages/Amsterdam.png',
-    categoryKeys: ['special-offers', 'last-search', 'trending-destinations'],
-    desktopClassName: 'right-4 top-6 md:right-6 md:top-6',
-  },
-  {
-    id: 3,
-    title: 'New Jersey',
-    subtitle: 'Windsor',
-    image: '/HotelImages/LandingPageImages/HotelHeroImages/NewJersey.png',
-    categoryKeys: ['special-offers', 'last-search', 'top-rated'],
-    desktopClassName: 'left-6 bottom-24 md:left-8 md:bottom-30',
-  },
-  {
-    id: 4,
-    title: 'Nepal',
-    subtitle: 'Hyatt Regency K',
-    image: '/HotelImages/LandingPageImages/HotelHeroImages/Nepal.png',
-    categoryKeys: ['special-offers', 'last-search', 'highest-reviewed'],
-    desktopClassName: 'left-1/2 top-1/2 md:left-1/2 md:top-[38%] -translate-x-1/2 -translate-y-1/2',
-  },
-  {
-    id: 5,
-    title: 'Gothenburg',
-    subtitle: 'First Hotel G',
-    image: '/HotelImages/LandingPageImages/HotelHeroImages/Gothenburg.png',
-    categoryKeys: ['special-offers', 'trending-destinations', 'highest-reviewed'],
-    desktopClassName: 'right-8 bottom-8 md:right-14 md:bottom-34',
-  },
-]
-
-const mapByTab: Record<HotelHeroTabKey, number[]> = {
-  'special-offers': [1, 2, 3, 4, 5],
-  'last-search': [2, 3, 4],
-  'trending-destinations': [1, 2, 5],
-  'highest-reviewed': [1, 4, 5],
-  'top-rated': [1, 3, 2],
-}
 
 const HotelHeroSection = () => {
   const [activeTab, setActiveTab] = useState<HotelHeroTabKey>('special-offers')
@@ -75,7 +18,7 @@ const HotelHeroSection = () => {
 
   return (
     <section className="w-full bg-background py-2 sm:py-4 md:py-6">
-      <div className="mx-auto w-full ">
+      <div className="mx-auto w-full px-4 sm:px-6 md:px-8">
         <div className="relative overflow-hidden h-100 sm:h-120 md:h-166 shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
           <Image
             src="/HotelImages/LandingPageImages/HotelHeroImages/HotelHeroBanner.png"

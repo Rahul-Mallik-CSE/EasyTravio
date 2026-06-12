@@ -1,3 +1,5 @@
+
+//hero section types
 export type HotelHeroTabKey =
 	| 'special-offers'
 	| 'last-search'
@@ -29,4 +31,20 @@ export interface OfferItem {
 export interface OffersSectionData {
   sectionTitle: string
   offers: OfferItem[]
+}
+
+//Review section Types 
+
+export interface ReviewItem {
+  id: number;
+  name: string;
+  flagEmoji: string;        
+  countryCode: string;      
+  avatarImage: string;      
+  description: string;
+}
+
+export interface ReviewSectionData {
+  backgroundImage: string;  
+  reviews: ReviewItem[];
 }
