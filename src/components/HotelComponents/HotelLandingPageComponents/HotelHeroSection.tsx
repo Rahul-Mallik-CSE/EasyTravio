@@ -18,7 +18,7 @@ const HotelHeroSection = () => {
 
   return (
     <section className="w-full bg-background py-2 sm:py-4 md:py-6">
-      <div className="mx-auto w-full px-4 sm:px-6 md:px-8">
+      <div className="mx-auto w-full ">
         <div className="relative overflow-hidden h-100 sm:h-120 md:h-166 shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
           <Image
             src="/HotelImages/LandingPageImages/HotelHeroImages/HotelHeroBanner.png"
@@ -52,10 +52,13 @@ const HotelHeroSection = () => {
           </div>
         </div>
 
+        {/* Tabs and Cards Section */}
+
         <div className="relative z-20 mx-auto max-w-7xl px-4 -mt-4 sm:px-6 sm:-mt-6 md:px-8 md:-mt-10 lg:-mt-12">
           <HotelHeroTabs tabs={tabs} activeTab={activeTab} onTabChange={(key) => setActiveTab(key as HotelHeroTabKey)} />
         </div>
-        <div className="max-w-7xl mx-auto">
+        {/* Cards Section */}
+        <div className="max-w-7xl mx-auto ">
           <div className="mx-4 sm:mx-6 md:mx-8 relative overflow-hidden rounded-b-sm  bg-[#004d5d] shadow-[0_18px_50px_rgba(0,0,0,0.16)]">
             <div className=" relative min-h-86 px-4 py-4 sm:px-6 sm:py-6 sm:min-h-96 md:h-124.5 md:px-8 md:py-8">
               <div className="absolute inset-0 hidden md:block">
