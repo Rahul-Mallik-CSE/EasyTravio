@@ -37,7 +37,7 @@ const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
     <div className="bg-white p-2 rounded-sm shadow-sm border border-gray-200 flex flex-col sm:flex-row overflow-visible max-h-none sm:max-h-64 hover:shadow-md transition-shadow duration-200 relative">
       {/* VIP Tag */}
       {hotel.isVip && (
-        <div className="absolute -top-1.75 -right-3.25 z-20">
+        <div className="absolute -top-1.5 md:-top-1.75 -right-3 md:-right-3.25 z-20">
           <Image
             src="/images/VIPTag.png"
             alt="VIP Gifts"

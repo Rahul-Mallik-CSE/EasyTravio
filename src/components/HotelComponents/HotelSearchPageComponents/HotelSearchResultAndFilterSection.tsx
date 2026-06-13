@@ -7,6 +7,8 @@ import HotelFilterSide from "./SubComponents/HotelFilterSide";
 import HotelSearchResultSide from "./SubComponents/HotelSearchResultSide";
 import { hotelSearchData, defaultFilterState } from "@/data/HotelSearchPageData";
 import { FilterState, HotelSearchItem } from "@/types/HotelSearchPageTypes";
+import { IoIosArrowForward } from "react-icons/io";
+import { Button } from "@/components/ui/button";
 
 const INITIAL_VISIBLE = 5;
 const LOAD_MORE_COUNT = 5;
@@ -95,7 +97,7 @@ const HotelSearchResultAndFilterSection = () => {
         </aside>
 
         {/* Results */}
-        <div className="flex-1 min-w-0 flex flex-col gap-4 mr-3.25">
+        <div className="flex-1 min-w-0 flex flex-col gap-4 mr-3 md:mr-3.25">
           <HotelSearchResultSide
             hotels={filteredHotels}
             visibleCount={visibleCount}
@@ -103,25 +105,23 @@ const HotelSearchResultAndFilterSection = () => {
           />
 
           {/* Bottom Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 mt-2">
-            <button
+          <div className="w-full flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-3 mt-2">
+            <Button
               onClick={handleFavourites}
-              className="flex-1 flex items-center justify-center gap-2 border border-sky-600 text-sky-600 font-semibold text-sm rounded-xl px-6 py-3 hover:bg-sky-50 transition-colors duration-200"
+              className="max-w-72.5 h-9 md:h-10 lg:h-12 flex items-center justify-center gap-2 border border-theme text-theme font-semibold text-sm rounded-sm px-6 py-3 bg-white hover:bg-sky-50 transition-colors duration-200"
             >
               List Your Favourite Places
               <Heart className="w-4 h-4" />
-            </button>
+            </Button>
 
             {hasMore && (
-              <button
+              <Button
                 onClick={handleLoadMore}
-                className="flex-1 flex items-center justify-center gap-2 bg-sky-700 hover:bg-sky-800 text-white font-semibold text-sm rounded-xl px-6 py-3 transition-colors duration-200"
+                className="max-w-72.5 h-9 md:h-10 lg:h-12 flex items-center justify-center gap-2 bg-theme hover:bg-theme text-white font-semibold text-sm rounded-sm px-6 py-3 transition-colors duration-200"
               >
                 See More Search Results
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
+                <IoIosArrowForward className="w-4 h-4" />
+              </Button>
             )}
           </div>
         </div>
