@@ -30,7 +30,7 @@ function StarRating({ count = 4 }: { count?: number }) {
 const FavouriteHotelListCard: React.FC<FavouriteHotelListCardProps> = ({ hotel }) => {
       const [favorited, setFavorited] = useState(hotel.favourite);
   return (
-    <div className="bg-white rounded-xl  shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 relative flex flex-col sm:flex-row">
+    <div className="bg-white rounded-sm p-2  shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200 relative flex flex-col sm:flex-row">
 
       
 
@@ -40,7 +40,7 @@ const FavouriteHotelListCard: React.FC<FavouriteHotelListCardProps> = ({ hotel }
           src={hotel.image}
           alt={hotel.name}
           fill
-          className="object-cover hover:scale-105 transition-transform duration-500"
+          className="object-cover rounded-t-sm sm:rounded-t-none sm:rounded-l-sm hover:scale-105 transition-transform duration-500"
         />
 
         {/* Favourite button */}
@@ -57,7 +57,7 @@ const FavouriteHotelListCard: React.FC<FavouriteHotelListCardProps> = ({ hotel }
         </button>
 
         {/* Bottom overlay: stars + rating */}
-        <div className="absolute bottom-0 left-0 right-0 px-2.5 py-1.5 flex items-center justify-between bg-black/35 backdrop-blur-sm">
+        <div className="absolute bottom-0 sm:rounded-bl-sm left-0 right-0 px-2.5 py-1.5 flex items-center justify-between bg-black/35 backdrop-blur-sm">
           <StarRating count={hotel.starRating} />
           <div className="flex items-center gap-2">
             {hotel.rating !== null && (
@@ -73,24 +73,24 @@ const FavouriteHotelListCard: React.FC<FavouriteHotelListCardProps> = ({ hotel }
       {/* Content Section */}
       <div className="p-3.5 flex flex-col gap-1.5">
         {/* Name */}
-        <h3 className="font-bold text-base text-primary leading-tight">{hotel.name}</h3>
+        <h3 className="font-extrabold text-base text-primary leading-tight">{hotel.name}</h3>
 
         {/* Location */}
-        <div className="flex items-center gap-1 text-gray-500 text-xs">
+        <div className="flex items-center gap-1 text-quaternary text-xs">
           <IoLocationOutline className="w-3.5 h-3.5 shrink-0" />
           <span>{hotel.location}, {hotel.distanceToShore}</span>
         </div>
 
         {/* Price row */}
         <div className="flex items-baseline gap-2 mt-1">
-          <span className="text-gray-900 font-bold text-2xl">${hotel.pricePerNight}</span>
+          <span className="text-primary font-extrabold text-base">${hotel.pricePerNight}</span>
           {hotel.discountPercent > 0 && (
-            <span className="text-red-500 text-xs font-semibold">{hotel.discountPercent}% Off</span>
+            <span className="text-red-600 text-[10px] font-semibold">{hotel.discountPercent}% Off</span>
           )}
         </div>
 
         {/* Taxes */}
-        <p className="text-gray-400 text-xs -mt-1">Includes Taxes And Charges</p>
+        <p className="text-quaternary text-xs -mt-1">Includes Taxes And Charges</p>
 
         {/* Sustainability */}
         <div className="flex items-center gap-1">
@@ -102,7 +102,7 @@ const FavouriteHotelListCard: React.FC<FavouriteHotelListCardProps> = ({ hotel }
         {hotel.available && hotel.discountPercent > 0 && (
           <div className="flex items-center gap-1">
             <HiOutlineExclamationCircle className="w-3.5 h-3.5 text-red-500" />
-            <span className="text-red-500 text-xs">
+            <span className="text-red-600 text-xs">
               We Have {hotel.availableAtDiscount} Left At {hotel.discountPercent}% Off
             </span>
           </div>
@@ -112,8 +112,8 @@ const FavouriteHotelListCard: React.FC<FavouriteHotelListCardProps> = ({ hotel }
         <Link
           href={hotel.available ? "/availability" : "#"}
           aria-disabled={!hotel.available}
-          className={`flex items-center gap-1 text-sm font-bold mt-1 transition-colors ${
-            hotel.available ? "text-blue-600 hover:text-blue-700" : "text-gray-400 pointer-events-none"
+          className={`flex items-center gap-1 text-base font-extrabold mt-1 transition-colors ${
+            hotel.available ? "text-theme hover:text-theme" : "text-gray-400 pointer-events-none"
           }`}
         >
           {hotel.available ? "See Availability" : "Unavailable"}

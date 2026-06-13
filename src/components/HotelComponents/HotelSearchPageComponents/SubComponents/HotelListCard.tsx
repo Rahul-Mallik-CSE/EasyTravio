@@ -71,7 +71,7 @@ const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
         </button>
 
         {/* Bottom overlay: stars + rating */}
-        <div className="absolute bottom-0 left-0 right-0 px-2 py-1.5 flex items-center justify-between bg-black/30 backdrop-blur-sm">
+        <div className="absolute bottom-0 left-0 right-0 sm:rounded-bl-sm px-2 py-1.5 flex items-center justify-between bg-black/30 backdrop-blur-sm">
           <StarRating count={hotel.starRating} />
           {hotel.rating !== null && (
             <span className="border border-secondary text-secondary text-xs font-semibold px-1 py-0.5 rounded">
