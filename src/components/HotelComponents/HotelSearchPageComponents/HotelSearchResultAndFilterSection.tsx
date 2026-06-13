@@ -95,7 +95,7 @@ const HotelSearchResultAndFilterSection = () => {
         </aside>
 
         {/* Results */}
-        <div className="flex-1 min-w-0 flex flex-col gap-4">
+        <div className="flex-1 min-w-0 flex flex-col gap-4 mr-3.25">
           <HotelSearchResultSide
             hotels={filteredHotels}
             visibleCount={visibleCount}
