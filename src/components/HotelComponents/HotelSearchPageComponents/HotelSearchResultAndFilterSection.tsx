@@ -66,7 +66,7 @@ const HotelSearchResultAndFilterSection = () => {
   };
 
   return (
-    <section className="w-full max-w-7xl mx-auto px-4 py-6">
+    <section className="w-full max-w-7xl mx-auto  py-2 sm:py-4 md:py-6">
       {/* Mobile Filter Button */}
       <div className="flex md:hidden justify-between items-center mb-4">
         <p className="text-sm text-gray-600 font-medium">
@@ -88,7 +88,7 @@ const HotelSearchResultAndFilterSection = () => {
       {/* Main Layout */}
       <div className="flex gap-6">
         {/* Filter Sidebar — desktop only */}
-        <aside className="hidden md:block w-56 lg:w-64 flex-shrink-0">
+        <aside className="hidden md:block w-44 lg:w-64 shrink-0">
           <div className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-200">
             <HotelFilterSide filters={filters} onFilterChange={handleFilterChange} />
           </div>

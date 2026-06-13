@@ -18,7 +18,7 @@ interface HotelFilterSideProps {
 }
 
 const SectionHeader = ({ title }: { title: string }) => (
-  <h3 className="text-black font-bold text-sm md:text-base mb-3">{title}</h3>
+  <h3 className="text-primary font-bold text-sm md:text-base mb-3">{title}</h3>
 );
 
 const FilterCheckbox = ({
@@ -37,7 +37,7 @@ const FilterCheckbox = ({
       id={id}
       checked={checked}
       onCheckedChange={onChange}
-      className="w-4 h-4 border-gray-300 data-[state=checked]:bg-sky-600 data-[state=checked]:border-sky-600"
+      className="w-4 h-4 border-gray-300 data-[state=checked]:bg-theme data-[state=checked]:border-theme"
     />
     <Label htmlFor={id} className="text-gray-500 text-xs cursor-pointer">
       {label}
@@ -55,11 +55,11 @@ const CollapsibleSection = ({
   const [open, setOpen] = React.useState(true);
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <div className="mb-5 border-t border-gray-100 pt-4">
+      <div className="  pt-4">
         <SectionHeader title={title} />
         <CollapsibleContent>{children}</CollapsibleContent>
         <CollapsibleTrigger asChild>
-          <button className="flex items-center gap-1 text-sky-500 text-xs font-medium mt-1">
+          <button className="flex cursor-pointer items-center gap-1 text-theme text-xs font-medium mt-1">
             Show More
             <ChevronDown
               className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
@@ -78,13 +78,13 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
   return (
     <div className="w-full">
       {/* Title */}
-      <h2 className="text-gray-400 font-bold text-lg sm:text-xl md:text-2xl mb-4">
+      <h2 className="text-quaternary font-bold text-lg sm:text-xl md:text-2xl mb-4">
         Filter By
       </h2>
 
       {/* Budget Slider */}
-      <div className="mb-5">
-        <p className="text-black text-xs md:text-sm mb-3">
+      <div className="mb-4">
+        <p className="text-primary text-xs md:text-sm mb-3">
           Your Budget For Per Night
         </p>
         <Slider
@@ -97,27 +97,27 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
           }
           className="mb-3"
         />
-        <div className="flex gap-2">
-          <div className="flex items-center border border-gray-300 rounded-md px-2 py-1 flex-1">
-            <span className="text-gray-400 text-xs mr-1">Min Price $</span>
+        <div className="flex md:gap-1 lg:gap-2">
+          <div className="flex items-center border border-secondary rounded-sm px-1 md:px-0.5 lg:px-1 py-1 flex-1">
+            <span className="flex-1 text-secondary text-[10px] mr-1">Min Price $</span>
             <input
               type="number"
               value={filters.minPrice}
               onChange={(e) =>
                 onFilterChange({ minPrice: Number(e.target.value) })
               }
-              className="w-full text-xs text-gray-700 outline-none bg-transparent"
+              className="flex-1 w-full text-[10px] text-secondary outline-none bg-transparent"
             />
           </div>
-          <div className="flex items-center border border-gray-300 rounded-md px-2 py-1 flex-1">
-            <span className="text-gray-400 text-xs mr-1">Max Price $</span>
+          <div className="w-full flex items-center border border-secondary rounded-sm px-1 md:px-0.5 lg:px-1 py-1 flex-1">
+            <span className="flex-1 text-secondary text-[10px] mr-0">Max Price $</span>
             <input
               type="number"
               value={filters.maxPrice}
               onChange={(e) =>
                 onFilterChange({ maxPrice: Number(e.target.value) })
               }
-              className="w-full text-xs text-gray-700 outline-none bg-transparent"
+              className="flex-1 w-full  text-xs text-secondary outline-none bg-transparent"
             />
           </div>
         </div>
@@ -192,7 +192,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
       </CollapsibleSection>
 
       {/* Guest Rating */}
-      <div className="mb-5 border-t border-gray-100 pt-4">
+      <div className="pt-4">
         <SectionHeader title="Gusts Rating" />
         <RadioGroup
           value={filters.guestRating}
@@ -213,7 +213,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
               <RadioGroupItem
                 value={opt.value}
                 id={`gr-${opt.value}`}
-                className="border-gray-300 text-sky-600 data-[state=checked]:border-sky-600 data-[state=checked]:text-sky-600"
+                className="border-gray-300 text-theme data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
               <Label
                 htmlFor={`gr-${opt.value}`}
@@ -224,13 +224,13 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-sky-500 text-xs font-medium mt-2">
+        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
           Show More <ChevronDown className="w-3.5 h-3.5" />
         </button>
       </div>
 
       {/* Bed Type */}
-      <div className="mb-5 border-t border-gray-100 pt-4">
+      <div className="pt-4">
         <SectionHeader title="Bed Type" />
         <RadioGroup
           value={filters.bedType}
@@ -250,7 +250,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
               <RadioGroupItem
                 value={opt.value}
                 id={`bt-${opt.value}`}
-                className="border-gray-300 data-[state=checked]:border-sky-600 data-[state=checked]:text-sky-600"
+                className="border-gray-300 data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
               <Label
                 htmlFor={`bt-${opt.value}`}
@@ -261,7 +261,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-sky-500 text-xs font-medium mt-2">
+        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
           Show More <ChevronDown className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -301,7 +301,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
       </CollapsibleSection>
 
       {/* Travel Sustainability */}
-      <div className="mb-5 border-t border-gray-100 pt-4">
+      <div className="pt-4">
         <SectionHeader title="Travel Sustainability" />
         <RadioGroup
           value={filters.sustainabilityLevel}
@@ -320,7 +320,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
               <RadioGroupItem
                 value={opt.value}
                 id={`sl-${opt.value}`}
-                className="border-gray-300 data-[state=checked]:border-sky-600 data-[state=checked]:text-sky-600"
+                className="border-gray-300 data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
               <Label
                 htmlFor={`sl-${opt.value}`}
@@ -331,13 +331,13 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-sky-500 text-xs font-medium mt-2">
+        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
           Show More <ChevronDown className="w-3.5 h-3.5" />
         </button>
       </div>
 
       {/* Accommodation Classification */}
-      <div className="mb-5 border-t border-gray-100 pt-4">
+      <div className="pt-4">
         <SectionHeader title="Accommodation Classification" />
         <RadioGroup
           value={filters.stars}
@@ -355,7 +355,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
               <RadioGroupItem
                 value={opt.value}
                 id={`st-${opt.value}`}
-                className="border-gray-300 data-[state=checked]:border-sky-600 data-[state=checked]:text-sky-600"
+                className="border-gray-300 data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
               <Label
                 htmlFor={`st-${opt.value}`}
@@ -366,13 +366,13 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-sky-500 text-xs font-medium mt-2">
+        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
           Show More <ChevronDown className="w-3.5 h-3.5" />
         </button>
       </div>
 
       {/* Distance From The Centre */}
-      <div className="mb-5 border-t border-gray-100 pt-4">
+      <div className="pt-4">
         <SectionHeader title="Distance From The Centre" />
         <RadioGroup
           value={filters.distance}
@@ -390,7 +390,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
               <RadioGroupItem
                 value={opt.value}
                 id={`dist-${opt.value}`}
-                className="border-gray-300 data-[state=checked]:border-sky-600 data-[state=checked]:text-sky-600"
+                className="border-gray-300 data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
               <Label
                 htmlFor={`dist-${opt.value}`}
@@ -401,7 +401,7 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-sky-500 text-xs font-medium mt-2">
+        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
           Show More <ChevronDown className="w-3.5 h-3.5" />
         </button>
       </div>
