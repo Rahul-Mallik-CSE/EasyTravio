@@ -64,7 +64,7 @@ const HotelSearchResultAndFilterSection = () => {
   };
 
   const handleFavourites = () => {
-    router.push("/favourite-hotel");
+    router.push("/hotel/favourite-hotel");
   };
 
   return (

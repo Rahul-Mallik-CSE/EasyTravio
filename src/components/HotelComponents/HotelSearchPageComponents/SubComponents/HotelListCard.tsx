@@ -31,7 +31,7 @@ function StarRating({ count = 5 }: { count?: number }) {
 }
 
 const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
-  const [favorited, setFavorited] = useState(false);
+  const [favorited, setFavorited] = useState(hotel.favourite);
 
   return (
     <div className="bg-white p-2 rounded-sm shadow-sm border border-gray-200 flex flex-col sm:flex-row overflow-visible max-h-none sm:max-h-64 hover:shadow-md transition-shadow duration-200 relative">
@@ -146,7 +146,7 @@ const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
                     </div>
 
                     {/* Availability warning */}
-                    {hotel.discountPercent > 0 && (
+                    {hotel.available && hotel.discountPercent > 0 && (
                     <div className="flex items-center gap-1 justify-start md:justify-end mb-2">
                         <HiOutlineExclamationCircle className="w-3.5 h-3.5 text-red-500" />
                         <span className="text-red-500 text-xs">
@@ -154,11 +154,23 @@ const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
                         </span>
                     </div>
                     )}
+                    {!hotel.available && (
+                      <div className="flex items-center gap-1 justify-start md:justify-end mb-2">
+                        <HiOutlineExclamationCircle className="w-3.5 h-3.5 text-gray-400" />
+                        <span className="text-gray-500 text-xs">Currently unavailable</span>
+                      </div>
+                    )}
                 </div>
 
-                <Link href="/availability" className="flex items-center gap-1 text-theme text-sm md:text-xs lg:text-sm font-bold pl-3 py-0 rounded-lg transition-colors duration-200 whitespace-nowrap ">
-                    See Availability
-                    <IoIosArrowForward className="w-3.5 h-3.5 text-theme" />
+                <Link
+                  href={hotel.available ? "/availability" : "#"}
+                  aria-disabled={!hotel.available}
+                  className={`flex items-center gap-1 text-sm md:text-xs lg:text-sm font-bold pl-3 py-0 rounded-lg transition-colors duration-200 whitespace-nowrap ${
+                    hotel.available ? "text-theme" : "text-gray-400 pointer-events-none"
+                  }`}
+                >
+                    {hotel.available ? "See Availability" : "Unavailable"}
+                    <IoIosArrowForward className={`w-3.5 h-3.5 ${hotel.available ? "text-theme" : "text-gray-400"}`} />
                 </Link>
             </div>
         </div>

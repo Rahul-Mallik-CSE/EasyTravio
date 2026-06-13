@@ -17,6 +17,8 @@ export interface HotelSearchItem {
   sustainabilityLevel: number;
   availableAtDiscount: number;
   isVip: boolean;
+  favourite: boolean;
+  available: boolean;
   image: string;
   starRating: number; // 0–5
 }
