@@ -1,4 +1,4 @@
-import React from 'react'
+
 import FlightHeroSection from './FlightHeroSection'
 import TravelTogetherSection from './TravelTogetherSection'
 import FallIntoTravelSection from './FallIntoTravelSection'
@@ -11,7 +11,7 @@ const FlightLandingPage = () => {
 
       {/* This is the landing page travel together section */}
       <TravelTogetherSection />
-      
+
       {/* This is the landing page fall into travel section */}
       <FallIntoTravelSection />
     </div>

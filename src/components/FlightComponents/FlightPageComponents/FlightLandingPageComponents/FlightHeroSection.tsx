@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Image from 'next/image'
 import ContentContainer from '@/components/CommonComponents/ContentContainer'
 import { flightHeroImage } from '@/data/FlightLandingPageData'

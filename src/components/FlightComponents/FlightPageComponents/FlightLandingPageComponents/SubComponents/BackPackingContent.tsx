@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { fallIntoTravelImages } from '@/data/FlightLandingPageData'
-import React from 'react'
 import FlightGalleryCard from './FlightGalleryCard'
 
 const BackPackingContent = () => {
