@@ -1,7 +1,7 @@
 import type { HotelDestinationCardData } from '@/types/HotelLandingPageTypes'
 
 export const flightHeroImage =
-  'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2000&q=80'
+  'https://images.unsplash.com/photo-1753621340695-bbb906391594?auto=format&fit=crop&w=2000&q=80'
 
 export const travelTogetherCards: HotelDestinationCardData[] = [
   {

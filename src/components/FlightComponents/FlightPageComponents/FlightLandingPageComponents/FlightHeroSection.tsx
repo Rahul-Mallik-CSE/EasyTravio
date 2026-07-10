@@ -7,6 +7,7 @@ const FlightHeroSection = () => {
   return (
     <section className="relative overflow-hidden">
       <div className="relative max-h-60 sm:max-h-70 md:max-h-86 lg:max-h-100">
+        {/* Background image with gradient overlay and content container for the hero section of the flight landing page. The image is responsive and covers the entire section, with a linear gradient overlay to enhance text readability. The content container holds the title, subtitle, and description of the hero section, which are styled for different screen sizes. */}
         <Image
           src={flightHeroImage}
           alt="Flight hero banner"
@@ -18,6 +19,7 @@ const FlightHeroSection = () => {
         <div className="absolute inset-0 bg-linear-to-r from-[#03141f]/82 via-[#03141f]/52 to-[#03141f]/10" />
         <div className="absolute inset-0 bg-linear-to-t from-black/18 via-transparent to-black/8" />
 
+        {/* Hero content container with title, subtitle, and description. The content is centered vertically and horizontally within the section, with responsive padding for different screen sizes. The text is styled with appropriate font sizes, weights, and colors to ensure readability against the background image and gradient overlay. */}
         <ContentContainer className="relative h-full">
           <div className="flex items-center py-14 sm:py-16  md:py-20 lg:py-24">
             <div className="max-w-[20rem] sm:max-w-md md:max-w-152 lg:max-w-176">

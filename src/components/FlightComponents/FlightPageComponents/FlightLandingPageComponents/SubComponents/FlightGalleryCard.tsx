@@ -9,7 +9,7 @@ interface FlightGalleryCardProps {
 const FlightGalleryCard = ({ image, alt }: FlightGalleryCardProps) => {
   return (
     <article className="group relative overflow-hidden rounded-sm border border-white/80 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
-      <div className="relative aspect-[4/3] w-full overflow-hidden">
+      <div className="relative aspect-4/3 w-full overflow-hidden">
         <Image
           src={image}
           alt={alt}
