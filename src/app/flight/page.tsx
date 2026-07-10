@@ -1,10 +1,10 @@
 import React from 'react'
-import FlightPage from '../../components/FlightComponents/FlightPageComponents/FlightPage'
+import FlightLandingPage from '@/components/FlightComponents/FlightPageComponents/FlightLandingPage'
 
 const page = () => {
   return (
     <div className="w-full">
-      <FlightPage />
+      <FlightLandingPage />
     </div>
   )
 }
