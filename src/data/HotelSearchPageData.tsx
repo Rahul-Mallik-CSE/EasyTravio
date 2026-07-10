@@ -21,7 +21,7 @@ export const hotelSearchData: HotelSearchItem[] = [
     availableAtDiscount: 8,
     isVip: false,
     favourite: true,
-    available: true,
+    available: false,
     image: "/HotelImages/SearchPageImages/Picture1.png",
     starRating: 0,
   },

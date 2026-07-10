@@ -111,12 +111,11 @@ const FavouriteHotelListCard: React.FC<FavouriteHotelListCardProps> = ({ hotel }
         {/* CTA */}
         <Link
           href={hotel.available ? "/availability" : "#"}
-          aria-disabled={!hotel.available}
           className={`flex items-center gap-1 text-base font-extrabold mt-1 transition-colors ${
             hotel.available ? "text-theme hover:text-theme" : "text-gray-400 pointer-events-none"
           }`}
         >
-          {hotel.available ? "See Availability" : "Unavailable"}
+          See Availability
           <IoIosArrowForward className="w-3.5 h-3.5" />
         </Link>
       </div>
