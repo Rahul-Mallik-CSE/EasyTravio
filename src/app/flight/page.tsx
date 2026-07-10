@@ -1,9 +1,10 @@
 import React from 'react'
+import FlightPage from '../../components/FlightComponents/FlightPageComponents/FlightPage'
 
 const page = () => {
   return (
-    <div>
-      <h1>This is flight booking page</h1>
+    <div className="w-full">
+      <FlightPage />
     </div>
   )
 }

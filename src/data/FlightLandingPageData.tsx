@@ -1,0 +1,54 @@
+import type { HotelDestinationCardData } from '@/types/HotelLandingPageTypes'
+
+export const flightHeroImage =
+  'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=2000&q=80'
+
+export const travelTogetherCards: HotelDestinationCardData[] = [
+  {
+    id: 1,
+    title: 'Washington',
+    subtitle: 'Wed 25 Jan-Fri 27 Jan',
+    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
+    categoryKeys: ['special-offers', 'last-search', 'trending-destinations', 'highest-reviewed', 'top-rated'],
+    desktopClassName: 'left-8 top-8',
+  },
+  {
+    id: 2,
+    title: 'China',
+    subtitle: 'Fri 30 Dec-Tue 4 Jan',
+    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
+    categoryKeys: ['special-offers', 'last-search', 'trending-destinations'],
+    desktopClassName: 'left-1/2 top-10 -translate-x-1/2',
+  },
+  {
+    id: 3,
+    title: 'Philippines',
+    subtitle: 'Sun 28 Apr-Tue 5 Maj',
+    image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80',
+    categoryKeys: ['special-offers', 'highest-reviewed', 'top-rated'],
+    desktopClassName: 'right-8 top-28',
+  },
+  {
+    id: 4,
+    title: 'Columbia',
+    subtitle: 'Sat 13 Jan-Thu 15 Jan',
+    image: 'https://images.unsplash.com/photo-1440778303588-435521a205bc?auto=format&fit=crop&w=900&q=80',
+    categoryKeys: ['special-offers', 'last-search', 'top-rated'],
+    desktopClassName: 'left-[33%] bottom-24 -translate-x-1/2',
+  },
+  {
+    id: 5,
+    title: 'Berlin',
+    subtitle: 'Wed 25 Jan-Fri 27 Jan',
+    image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80',
+    categoryKeys: ['special-offers', 'trending-destinations', 'highest-reviewed'],
+    desktopClassName: 'left-1/2 bottom-10 -translate-x-1/2',
+  },
+]
+
+export const fallIntoTravelImages = [
+  'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=900&q=80',
+  'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80',
+]
