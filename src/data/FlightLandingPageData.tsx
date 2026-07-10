@@ -10,7 +10,7 @@ export const travelTogetherCards: HotelDestinationCardData[] = [
     subtitle: 'Wed 25 Jan-Fri 27 Jan',
     image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=900&q=80',
     categoryKeys: ['special-offers', 'last-search', 'trending-destinations', 'highest-reviewed', 'top-rated'],
-    desktopClassName: 'left-8 top-8',
+    desktopClassName: 'left-1 top-8',
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ export const travelTogetherCards: HotelDestinationCardData[] = [
     subtitle: 'Fri 30 Dec-Tue 4 Jan',
     image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80',
     categoryKeys: ['special-offers', 'last-search', 'trending-destinations'],
-    desktopClassName: 'left-1/2 top-10 -translate-x-1/2',
+    desktopClassName: 'right-[10%] lg:right-[30%] top-0',
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ export const travelTogetherCards: HotelDestinationCardData[] = [
     subtitle: 'Sun 28 Apr-Tue 5 Maj',
     image: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80',
     categoryKeys: ['special-offers', 'highest-reviewed', 'top-rated'],
-    desktopClassName: 'right-8 top-28',
+    desktopClassName: 'right-2 top-34',
   },
   {
     id: 4,
@@ -34,7 +34,7 @@ export const travelTogetherCards: HotelDestinationCardData[] = [
     subtitle: 'Sat 13 Jan-Thu 15 Jan',
     image: 'https://images.unsplash.com/photo-1440778303588-435521a205bc?auto=format&fit=crop&w=900&q=80',
     categoryKeys: ['special-offers', 'last-search', 'top-rated'],
-    desktopClassName: 'left-[33%] bottom-24 -translate-x-1/2',
+    desktopClassName: 'left-[2%] lg:left-[10%] top-60 ',
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ export const travelTogetherCards: HotelDestinationCardData[] = [
     subtitle: 'Wed 25 Jan-Fri 27 Jan',
     image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=900&q=80',
     categoryKeys: ['special-offers', 'trending-destinations', 'highest-reviewed'],
-    desktopClassName: 'left-1/2 bottom-10 -translate-x-1/2',
+    desktopClassName: 'left-1/2 top-65',
   },
 ]
 

@@ -28,11 +28,11 @@ const FlightSectionHeader = ({
         {eyebrow ? (
           <p className={`text-sm font-semibold uppercase tracking-[0.28em] text-theme ${eyebrowClassName}`}>{eyebrow}</p>
         ) : null}
-        <h2 className={`mt-2 text-2xl font-extrabold tracking-tight text-primary sm:text-3xl md:text-[40px] ${titleClassName}`}>
+        <h2 className={`mt-1 text-2xl font-extrabold tracking-tight text-primary sm:text-[28px] md:text-[32px] ${titleClassName}`}>
           {title}
         </h2>
         {subtitle ? (
-          <p className={`mt-3 max-w-4xl text-sm leading-6 text-tertiary sm:text-base md:text-[1.1rem] ${subtitleClassName}`}>
+          <p className={`mt-1 max-w-4xl text-sm leading-6 text-tertiary sm:text-base md:text-lg ${subtitleClassName}`}>
             {subtitle}
           </p>
         ) : null}
