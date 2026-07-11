@@ -27,7 +27,7 @@ export default function FlightDetailActions({ flight }: FlightDetailActionsProps
           Help
         </button>
         <Link
-          href={`/flight/book/${flight.id}`}
+          href={`/flight/${flight.id}/book`}
           className="flex-1 bg-theme text-white text-center py-2.5 rounded-sm text-sm font-bold hover:bg-blue-700 active:bg-blue-800 transition-colors"
         >
           Purchase The Flight
