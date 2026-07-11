@@ -81,12 +81,48 @@ export default function DigitalTicketContent() {
   const rows = buildTicketRows(ticketFlight)
   const hasStop = ticketFlight.stops > 0
 
+  async function createTicketPdfUrl() {
+    const [{ pdf }, { default: TicketPdfDocument }] = await Promise.all([
+      import('@react-pdf/renderer'),
+      import('./Pdf/TicketPdfDocument'),
+    ])
+
+    const blob = await pdf(
+      <TicketPdfDocument
+        flight={ticketFlight}
+        rows={rows}
+        passengerName={passengerName}
+        bookingRef={bookingRef}
+        email={email}
+      />
+    ).toBlob()
+
+    return URL.createObjectURL(blob)
+  }
+
   async function handleDownloadPdf() {
-    window.print()
+    const pdfUrl = await createTicketPdfUrl()
+    const link = document.createElement('a')
+    link.href = pdfUrl
+    link.download = `easytravio-ticket-${bookingRef}.pdf`
+    link.click()
+    window.setTimeout(() => URL.revokeObjectURL(pdfUrl), 1500)
   }
 
   async function handlePrintPdf() {
-    window.print()
+    const pdfUrl = await createTicketPdfUrl()
+    const pdfWindow = window.open(pdfUrl, '_blank')
+
+    if (!pdfWindow) {
+      URL.revokeObjectURL(pdfUrl)
+      return
+    }
+
+    window.setTimeout(() => {
+      pdfWindow.focus()
+      pdfWindow.print()
+      window.setTimeout(() => URL.revokeObjectURL(pdfUrl), 2000)
+    }, 700)
   }
 
   function handleSearchMore() {

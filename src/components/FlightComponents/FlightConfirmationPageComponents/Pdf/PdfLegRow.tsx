@@ -1,9 +1,9 @@
 import { Text, View } from '@react-pdf/renderer'
-import { FlightLeg } from '@/types/FlightTypes'
+import { TicketRowLeg } from '@/types/FlightTypes'
 import { ticketPdfStyles } from './ticketPdfStyles'
 
 type PdfLegRowProps = {
-  row: FlightLeg
+  row: TicketRowLeg
   alternate?: boolean
 }
 

@@ -1,9 +1,9 @@
 import { Text, View } from '@react-pdf/renderer'
-import { StopRow } from '@/types/FlightTypes'
+import { TicketRowStop } from '@/types/FlightTypes'
 import { ticketPdfStyles } from './ticketPdfStyles'
 
 type PdfStopRowProps = {
-  row: StopRow
+  row: TicketRowStop
 }
 
 export default function PdfStopRow({ row }: PdfStopRowProps) {

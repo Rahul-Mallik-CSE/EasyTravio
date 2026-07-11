@@ -181,6 +181,7 @@ export default function FlightSearchBar() {
       return { ...prev, [type]: newVal }
     })
   }
+  
 
   return (
     <div className="w-full mb-2 md:mb-4 lg:mb-6">
