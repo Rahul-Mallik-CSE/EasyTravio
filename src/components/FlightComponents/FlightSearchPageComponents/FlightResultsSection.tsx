@@ -1,6 +1,6 @@
 'use client'
-import React, { useMemo } from 'react'
-import { Heart, ChevronRight, Plane, Loader2 } from 'lucide-react'
+import  { useMemo } from 'react'
+import {  ChevronRight, Plane } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import FlightFilterSidebar from './FlightFilterSidebar'
 import FlightSortBar from './FlightSortBar'
@@ -54,7 +54,7 @@ export default function FlightResultsSection() {
       <div className="flex gap-6">
         {/* Filter sidebar — desktop only */}
         {hasSearched && (
-          <aside className="hidden md:block w-44 lg:w-52 shrink-0">
+          <aside className="hidden md:block w-56 lg:w-60 shrink-0">
             <div className="sticky top-4 max-h-full overflow-y-auto pr-2">
               <FlightFilterSidebar
                 availableAirlines={meta?.airlines ?? []}
@@ -96,10 +96,7 @@ export default function FlightResultsSection() {
               </div>
 
               <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-                <button className="flex items-center gap-2 border border-theme text-theme px-6 py-2.5 rounded-sm text-sm font-semibold hover:bg-blue-50 transition-colors cursor-pointer">
-                  <Heart className="w-4 h-4" />
-                  List Your Favourite Places
-                </button>
+                
 
                 {hasMore && (
                   <button

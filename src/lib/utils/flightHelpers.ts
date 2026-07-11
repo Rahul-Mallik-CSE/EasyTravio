@@ -29,6 +29,7 @@ export const matchesDepartureWindow = (isoString: string, window: FlightFilters[
 
 export const filterFlights = (flights: Flight[], filters: FlightFilters): Flight[] =>
   flights.filter((flight) => {
+    if (filters.minPrice !== null && flight.price < filters.minPrice) return false
     if (filters.maxPrice !== null && flight.price > filters.maxPrice) return false
     if (filters.maxStops !== null && flight.stops > filters.maxStops) return false
     if (filters.airlines.length > 0 && !filters.airlines.includes(flight.airline)) return false

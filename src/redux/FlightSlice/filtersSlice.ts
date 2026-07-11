@@ -8,6 +8,7 @@ interface FiltersState {
 
 const initialState: FiltersState = {
   filters: {
+    minPrice: null,
     maxPrice: null,
     maxStops: null,
     airlines: [],
@@ -22,6 +23,9 @@ const filtersSlice = createSlice({
   reducers: {
     setSortBy(state, action: PayloadAction<SortOption>) {
       state.sortBy = action.payload
+    },
+    setMinPrice(state, action: PayloadAction<number | null>) {
+      state.filters.minPrice = action.payload
     },
     setMaxPrice(state, action: PayloadAction<number | null>) {
       state.filters.maxPrice = action.payload
@@ -50,6 +54,7 @@ const filtersSlice = createSlice({
 
 export const {
   setSortBy,
+  setMinPrice,
   setMaxPrice,
   setMaxStops,
   toggleAirline,

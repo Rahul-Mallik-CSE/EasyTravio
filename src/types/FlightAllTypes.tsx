@@ -29,6 +29,7 @@ export interface SearchParams {
 }
 
 export interface FlightFilters {
+  minPrice: number | null
   maxPrice: number | null
   maxStops: number | null
   airlines: string[]
