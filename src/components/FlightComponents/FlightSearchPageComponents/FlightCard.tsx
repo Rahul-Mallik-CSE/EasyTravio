@@ -3,17 +3,8 @@ import Link from 'next/link'
 import { Plane, Luggage, Leaf } from 'lucide-react'
 import type { Flight } from '@/types/FlightAllTypes'
 import { formatDuration, formatTime, formatDate, getStopsLabel } from '@/lib/utils/flightHelpers'
+import { AIRLINE_IMAGES, DEFAULT_IMAGE } from '@/data/FlightLandingPageData'
 
-const AIRLINE_IMAGES: Record<string, string> = {
-  'Biman Bangladesh': 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400&h=300&fit=crop',
-  'Emirates': 'https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=400&h=300&fit=crop',
-  'Qatar Airways': 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=400&h=300&fit=crop',
-  'Singapore Airlines': 'https://images.unsplash.com/photo-1753621343732-aee881910914?w=400&h=300&fit=crop',
-  'AirAsia': 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=400&h=300&fit=crop',
-  'Turkish Airlines': 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400&h=300&fit=crop',
-}
-
-const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1628964178609-aec11c666040?w=400&h=300&fit=crop'
 
 const BAGGAGE_OPTIONS = ['20kg Checked', '23kg Checked', '25kg Checked', '30kg Checked', 'Cabin Only']
 

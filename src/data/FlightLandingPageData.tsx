@@ -52,3 +52,15 @@ export const fallIntoTravelImages = [
   'https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=900&q=80',
   'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=900&q=80',
 ]
+
+
+export const AIRLINE_IMAGES: Record<string, string> = {
+  'Biman Bangladesh': 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=800&h=400&fit=crop',
+  'Emirates': 'https://images.unsplash.com/photo-1569629743817-70d8db6c323b?w=800&h=400&fit=crop',
+  'Qatar Airways': 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=800&h=400&fit=crop',
+  'Singapore Airlines': 'https://images.unsplash.com/photo-1753621343732-aee881910914?w=800&h=400&fit=crop',
+  'AirAsia': 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=800&h=400&fit=crop',
+  'Turkish Airlines': 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=800&h=400&fit=crop',
+}
+
+export const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1628964178609-aec11c666040?w=800&h=400&fit=crop'

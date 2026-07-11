@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import searchReducer from './FlightSlice/searchSlice'
 import filtersReducer from './FlightSlice/filtersSlice'
+import flightDetailReducer from './FlightSlice/flightDetailSlice'
 
 export const makeStore = () =>
   configureStore({
     reducer: {
       search: searchReducer,
       filters: filtersReducer,
+      flightDetail: flightDetailReducer,
     },
   })
 
