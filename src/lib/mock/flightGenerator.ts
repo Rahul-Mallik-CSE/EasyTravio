@@ -168,6 +168,12 @@ export const generateFlightsForSearch = (origin: string, destination: string, da
     .map((flight) => applySearchDate(flight, date))
 }
 
+export const generateAllFlightsForDate = (date: string): Flight[] => {
+  return getMockFlightCatalog()
+    .filter((flight) => isFlightScheduledOnDate(flight, date))
+    .map((flight) => applySearchDate(flight, date))
+}
+
 export const findFlightById = (id: string): Flight | undefined => {
   const parsed = parseFlightId(id)
   if (!parsed) return undefined

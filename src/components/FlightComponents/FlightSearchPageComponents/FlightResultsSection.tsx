@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useRef, useEffect, useCallback } from 'react'
+import { useMemo, useRef, useEffect } from 'react'
 import { Plane } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import FlightFilterSidebar from './FlightFilterSidebar'
@@ -15,6 +15,7 @@ export default function FlightResultsSection() {
   const { filters, sortBy } = useAppSelector((state) => state.filters)
 
   const sentinelRef = useRef<HTMLDivElement>(null)
+  const loadMoreRef = useRef({ hasMore: false, isLoadingMore: false })
 
   const filteredAndSorted = useMemo(() => {
     const filtered = filterFlights(flights, filters)
@@ -27,11 +28,7 @@ export default function FlightResultsSection() {
   const isEmpty = hasSearched && !isLoading && filteredAndSorted.length === 0
   const hasMore = meta?.hasMore ?? false
 
-  const handleLoadMore = useCallback(() => {
-    if (hasMore && !isLoadingMore) {
-      dispatch(loadMoreFlights())
-    }
-  }, [hasMore, isLoadingMore, dispatch])
+  loadMoreRef.current = { hasMore, isLoadingMore }
 
   useEffect(() => {
     const sentinel = sentinelRef.current
@@ -39,8 +36,8 @@ export default function FlightResultsSection() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
-          handleLoadMore()
+        if (entries[0].isIntersecting && loadMoreRef.current.hasMore && !loadMoreRef.current.isLoadingMore) {
+          dispatch(loadMoreFlights())
         }
       },
       { rootMargin: '200px' }
@@ -48,7 +45,7 @@ export default function FlightResultsSection() {
 
     observer.observe(sentinel)
     return () => observer.disconnect()
-  }, [handleLoadMore])
+  }, [flights.length, hasMore, dispatch])
 
   return (
     <section className="w-full max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { findFlightById, generateFlightsForSearch } from '@/lib/mock/flightGenerator'
+import { findFlightById, generateFlightsForSearch, generateAllFlightsForDate } from '@/lib/mock/flightGenerator'
 import { paginate, FLIGHTS_PAGE_SIZE } from '@/lib/utils/pagination'
 import { getSearchDateError, isValidSearchDate } from '@/lib/utils/searchDate'
 
@@ -7,8 +7,8 @@ const SIMULATED_DELAY_MS = 800
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const origin = searchParams.get('origin')?.toUpperCase()
-  const destination = searchParams.get('destination')?.toUpperCase()
+  const origin = searchParams.get('origin')?.toUpperCase() || ''
+  const destination = searchParams.get('destination')?.toUpperCase() || ''
   const date = searchParams.get('date')
   const simulateError = searchParams.get('simulateError') === 'true'
 
@@ -18,25 +18,32 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: 'Unable to fetch flights. Please try again.' }, { status: 500 })
   }
 
-  if (!origin || !destination || !date) {
-    return NextResponse.json({ error: 'Missing required parameters: origin, destination, date' }, { status: 400 })
-  }
-
-  if (origin === destination) {
-    return NextResponse.json({ error: 'Origin and destination must be different' }, { status: 400 })
+  if (!date) {
+    return NextResponse.json({ error: 'Missing required parameter: date' }, { status: 400 })
   }
 
   if (!isValidSearchDate(date)) {
     return NextResponse.json({ error: getSearchDateError(date) }, { status: 400 })
   }
 
+  if (origin && destination && origin === destination) {
+    return NextResponse.json({ error: 'Origin and destination must be different' }, { status: 400 })
+  }
+
   const passengers = Math.max(1, Number(searchParams.get('passengers') ?? 1))
   const page = Math.max(1, Number(searchParams.get('page') ?? 1))
   const limit = Math.min(20, Math.max(1, Number(searchParams.get('limit') ?? FLIGHTS_PAGE_SIZE)))
 
-  const allResults = generateFlightsForSearch(origin, destination, date).filter(
-    (flight) => flight.availableSeats >= passengers
-  )
+  let allResults
+  if (origin && destination) {
+    allResults = generateFlightsForSearch(origin, destination, date).filter(
+      (flight) => flight.availableSeats >= passengers
+    )
+  } else {
+    allResults = generateAllFlightsForDate(date).filter(
+      (flight) => flight.availableSeats >= passengers
+    )
+  }
 
   const { items: results, hasMore, total } = paginate(allResults, page, limit)
 
@@ -53,8 +60,8 @@ export async function GET(request: Request) {
       page,
       limit,
       hasMore,
-      origin,
-      destination,
+      origin: origin || null,
+      destination: destination || null,
       date,
       passengers,
       airlines,

@@ -9,8 +9,8 @@ interface SearchMeta {
   page: number
   limit: number
   hasMore: boolean
-  origin: string
-  destination: string
+  origin: string | null
+  destination: string | null
   date: string
   passengers: number
   airlines: string[]
@@ -44,13 +44,13 @@ const initialState: SearchState = {
 
 const buildSearchQuery = (params: SearchParams, page: number) => {
   const query = new URLSearchParams({
-    origin: params.origin,
-    destination: params.destination,
     date: params.date,
     passengers: String(params.passengers),
     page: String(page),
     limit: String(FLIGHTS_PAGE_SIZE),
   })
+  if (params.origin) query.set('origin', params.origin)
+  if (params.destination) query.set('destination', params.destination)
   return query
 }
 

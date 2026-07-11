@@ -18,8 +18,6 @@ import { AIRPORTS } from '@/lib/mock/flightGenerator'
 import type { SearchParams } from '@/types/FlightAllTypes'
 
 const ALL_CITIES = AIRPORTS.map((a) => `${a.city} (${a.code})`).sort()
-const DEFAULT_ORIGIN = `${AIRPORTS[0].city} (${AIRPORTS[0].code})`
-const DEFAULT_DESTINATION = `${AIRPORTS[1].city} (${AIRPORTS[1].code})`
 const CABIN_CLASSES = ['Economy', 'Premium Economy', 'Business', 'First Class']
 
 export default function FlightSearchBar() {
@@ -37,8 +35,8 @@ export default function FlightSearchBar() {
     return d.toISOString().split('T')[0]
   }, [])
 
-  const [origin, setOrigin] = useState(searchParams.origin || DEFAULT_ORIGIN)
-  const [destination, setDestination] = useState(searchParams.destination || DEFAULT_DESTINATION)
+  const [origin, setOrigin] = useState(searchParams.origin)
+  const [destination, setDestination] = useState(searchParams.destination)
   const [departDate, setDepartDate] = useState(searchParams.date || today)
   const [passengers, setPassengers] = useState({ adults: searchParams.passengers || 1, children: 0, infants: 0 })
   const [cabinClass, setCabinClass] = useState('')
@@ -97,8 +95,8 @@ export default function FlightSearchBar() {
       dispatch(searchFlights(params))
     } else {
       const params: SearchParams = {
-        origin: AIRPORTS[0].code,
-        destination: AIRPORTS[1].code,
+        origin: '',
+        destination: '',
         date: today,
         passengers: 1,
       }
@@ -123,20 +121,25 @@ export default function FlightSearchBar() {
   function handleSearch() {
     const total = totalPassengers > 0 ? totalPassengers : 1
     const params: SearchParams = {
-      origin: origin.split('(')[1]?.replace(')', '').trim() || origin,
-      destination: destination.split('(')[1]?.replace(')', '').trim() || destination,
+      origin: origin.split('(')[1]?.replace(')', '').trim() || '',
+      destination: destination.split('(')[1]?.replace(')', '').trim() || '',
       date: departDate,
       passengers: total,
     }
+
+    if (params.origin && params.destination && params.origin === params.destination) {
+      return
+    }
+
     dispatch(updateSearchParams(params))
 
     if (!isSearchPage) {
       const query = new URLSearchParams({
-        origin: params.origin,
-        destination: params.destination,
         date: params.date,
         passengers: String(params.passengers),
       })
+      if (params.origin) query.set('origin', params.origin)
+      if (params.destination) query.set('destination', params.destination)
       router.push(`/flight/search?${query.toString()}`)
       return
     }
@@ -146,8 +149,8 @@ export default function FlightSearchBar() {
 
   function handleClearSearch() {
     const todayStr = new Date().toISOString().split('T')[0]
-    setOrigin(DEFAULT_ORIGIN)
-    setDestination(DEFAULT_DESTINATION)
+    setOrigin('')
+    setDestination('')
     setDepartDate(todayStr)
     setPassengers({ adults: 1, children: 0, infants: 0 })
     setCabinClass('')
@@ -159,8 +162,8 @@ export default function FlightSearchBar() {
 
     if (isSearchPage) {
       const params: SearchParams = {
-        origin: AIRPORTS[0].code,
-        destination: AIRPORTS[1].code,
+        origin: '',
+        destination: '',
         date: todayStr,
         passengers: 1,
       }
