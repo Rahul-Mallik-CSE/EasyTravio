@@ -1,47 +1,33 @@
+'use client'
 import React from 'react'
+import Link from 'next/link'
 import { Plane, Luggage, Leaf } from 'lucide-react'
+import type { Flight } from '@/types/FlightAllTypes'
+import { formatDuration, formatTime, getStopsLabel } from '@/lib/utils/flightHelpers'
 
-interface FlightCardProps {
-  airline: string
-  fromCity: string
-  departTime: string
-  departCode: string
-  departName: string
-  toCity: string
-  arriveTime: string
-  arriveCode: string
-  arriveName: string
-  duration: string
-  stops: number
-  stopCity?: string
-  price: number
-  vacantSeats: number
-  co2: string
-  bag: string
-  imageUrl: string
+const AIRLINE_IMAGES: Record<string, string> = {
+  'Biman Bangladesh': 'https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&h=300&fit=crop',
+  'Emirates': 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=400&h=300&fit=crop',
+  'Qatar Airways': 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop',
+  'Singapore Airlines': 'https://images.unsplash.com/photo-1474302770737-173ee21bad6e?w=400&h=300&fit=crop',
+  'AirAsia': 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400&h=300&fit=crop',
+  'Turkish Airlines': 'https://images.unsplash.com/photo-1583996023488-6c4c60ca3c86?w=400&h=300&fit=crop',
 }
 
-export default function FlightCard({
-  airline,
-  fromCity,
-  departTime,
-  departCode,
-  departName,
-  toCity,
-  arriveTime,
-  arriveCode,
-  arriveName,
-  duration,
-  stops,
-  stopCity,
-  price,
-  vacantSeats,
-  co2,
-  bag,
-  imageUrl,
-}: FlightCardProps) {
-  const stopsLabel =
-    stops === 0 ? 'Non-stop' : stops === 1 ? `1 Stop${stopCity ? ` (${stopCity})` : ''}` : `${stops} Stops`
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&h=300&fit=crop'
+
+const BAGGAGE_OPTIONS = ['20kg Checked', '23kg Checked', '25kg Checked', '30kg Checked', 'Cabin Only']
+
+interface FlightCardProps {
+  flight: Flight
+}
+
+export default function FlightCard({ flight }: FlightCardProps) {
+  const stopsLabel = getStopsLabel(flight.stops)
+  const stopsColor = flight.stops === 0 ? '#38a169' : '#6b7280'
+  const imageUrl = AIRLINE_IMAGES[flight.airline] || DEFAULT_IMAGE
+  const baggage = BAGGAGE_OPTIONS[Math.floor(flight.price % BAGGAGE_OPTIONS.length)]
+  const co2 = `${Math.round(flight.duration * 0.25)} kg CO₂`
 
   return (
     <article className="bg-card border border-card-border rounded-lg shadow-sm hover:shadow-md transition-shadow overflow-hidden">
@@ -50,111 +36,98 @@ export default function FlightCard({
         <div className="relative w-full sm:w-52 h-36 sm:h-auto shrink-0 overflow-hidden">
           <img
             src={imageUrl}
-            alt={`${airline} flight`}
+            alt={`${flight.airline} flight`}
             className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
           />
-          {/* Airline name overlay */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent px-3 py-2">
-            <span className="text-white text-xs font-semibold">{airline}</span>
+            <span className="text-white text-xs font-semibold">{flight.airline}</span>
           </div>
-          {/* Vacant seats badge */}
-          {vacantSeats <= 10 && (
+          {flight.availableSeats <= 10 && (
             <div className="absolute top-2 right-2 bg-orange-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
-              {vacantSeats} left!
+              {flight.availableSeats} left!
             </div>
           )}
         </div>
 
         {/* Flight info */}
         <div className="flex-1 p-4">
-          {/* Top row: From / Route / To */}
           <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2 mb-3">
             {/* From */}
             <div>
               <p className="text-xs text-secondary mb-0.5">From</p>
-              <p className="font-bold text-theme text-base">{fromCity}</p>
+              <p className="font-bold text-theme text-base">{flight.originCity}</p>
               <div className="flex items-center gap-2 mt-1">
-                <span className="text-xl font-bold text-foreground">{departTime}</span>
-                <span className="text-xs text-secondary">PM</span>
+                <span className="text-xl font-bold text-foreground">{formatTime(flight.departureTime)}</span>
               </div>
               <p className="text-xs text-secondary mt-0.5">Departure</p>
               <div className="flex items-center gap-1 mt-1">
                 <Plane className="w-3 h-3 text-secondary" />
-                <span className="text-xs text-secondary">
-                  {departCode} {departName}
-                </span>
+                <span className="text-xs text-secondary">{flight.origin}</span>
               </div>
             </div>
 
             {/* Center: duration + stops */}
             <div className="flex flex-col items-center gap-1 pt-5 px-2">
               <p className="text-xs text-secondary whitespace-nowrap">
-                Trip Duration · {duration}
+                Trip Duration · {formatDuration(flight.duration)}
               </p>
               <div className="flex items-center gap-1 w-full my-1">
                 <div className="h-px flex-1 bg-border" />
                 <Plane className="w-4 h-4 text-theme rotate-90" />
                 <div className="h-px flex-1 bg-border" />
               </div>
-              <p
-                className="text-xs font-medium"
-                style={{ color: stops === 0 ? '#38a169' : '#6b7280' }}
-              >
+              <p className="text-xs font-medium" style={{ color: stopsColor }}>
                 {stopsLabel}
               </p>
+              {flight.stopCities.length > 0 && (
+                <p className="text-[10px] text-secondary">via {flight.stopCities.join(', ')}</p>
+              )}
             </div>
 
             {/* To */}
             <div className="text-right">
               <p className="text-xs text-secondary mb-0.5">To</p>
-              <p className="font-bold text-theme text-base">{toCity}</p>
+              <p className="font-bold text-theme text-base">{flight.destinationCity}</p>
               <div className="flex items-center justify-end gap-2 mt-1">
-                <span className="text-xl font-bold text-foreground">{arriveTime}</span>
-                <span className="text-xs text-secondary">AM</span>
+                <span className="text-xl font-bold text-foreground">{formatTime(flight.arrivalTime)}</span>
               </div>
               <p className="text-xs text-secondary mt-0.5">Landing</p>
               <div className="flex items-center justify-end gap-1 mt-1">
                 <Plane className="w-3 h-3 text-secondary" />
-                <span className="text-xs text-secondary">
-                  {arriveCode} {arriveName}
-                </span>
+                <span className="text-xs text-secondary">{flight.destination}</span>
               </div>
             </div>
           </div>
 
-          {/* Divider */}
           <div className="border-t border-card-border my-3" />
 
-          {/* Bottom row: price + extras + button */}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-4">
-              {/* Price */}
               <div>
-                <span className="text-2xl font-bold text-theme">${price}</span>
-                {vacantSeats > 0 && (
+                <span className="text-2xl font-bold text-theme">${flight.price}</span>
+                {flight.availableSeats > 0 && (
                   <span className="ml-2 text-xs text-green-600 font-medium">
-                    {vacantSeats} Vacant Seats
+                    {flight.availableSeats} Vacant Seats
                   </span>
                 )}
               </div>
-
-              {/* CO2 */}
               <div className="flex items-center gap-1 text-green-600">
                 <Leaf className="w-3.5 h-3.5" />
                 <span className="text-xs">{co2}</span>
               </div>
             </div>
 
-            {/* Bag info */}
             <div className="flex items-center gap-1 text-secondary">
               <Luggage className="w-3.5 h-3.5" />
-              <span className="text-xs">{bag}</span>
+              <span className="text-xs">{baggage}</span>
             </div>
 
-            {/* View detail button */}
-            <span className="inline-flex items-center gap-2 px-5 py-2 bg-theme text-white text-sm font-semibold rounded-sm hover:bg-blue-700 active:bg-blue-800 transition-colors cursor-pointer">
+            <Link
+              href={`/flight/${flight.id}`}
+              className="inline-flex items-center gap-2 px-5 py-2 bg-theme text-white text-sm font-semibold rounded-sm hover:bg-blue-700 active:bg-blue-800 transition-colors"
+            >
               View Detail
-            </span>
+            </Link>
           </div>
         </div>
       </div>
