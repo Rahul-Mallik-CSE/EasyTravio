@@ -13,6 +13,14 @@ export const formatTime = (isoString: string): string =>
     hour12: true,
   })
 
+export const formatDate = (isoString: string): string =>
+  new Date(isoString).toLocaleDateString('en-US', {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+
 export const formatPrice = (price: number, currency = 'USD'): string =>
   new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(price)
 

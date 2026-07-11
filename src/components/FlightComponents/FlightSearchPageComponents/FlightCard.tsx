@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { Plane, Luggage, Leaf } from 'lucide-react'
 import type { Flight } from '@/types/FlightAllTypes'
-import { formatDuration, formatTime, getStopsLabel } from '@/lib/utils/flightHelpers'
+import { formatDuration, formatTime, formatDate, getStopsLabel } from '@/lib/utils/flightHelpers'
 
 const AIRLINE_IMAGES: Record<string, string> = {
   'Biman Bangladesh': 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400&h=300&fit=crop',
@@ -58,7 +58,7 @@ export default function FlightCard({ flight }: FlightCardProps) {
               <div className="flex items-center gap-2 mt-1">
                 <span className="text-xl font-bold text-foreground">{formatTime(flight.departureTime)}</span>
               </div>
-              <p className="text-xs text-secondary mt-0.5">Departure</p>
+              <p className="text-[11px] text-secondary mt-0.5">{formatDate(flight.departureTime)}</p>
               <div className="flex items-center gap-1 mt-1">
                 <Plane className="w-3 h-3 text-secondary" />
                 <span className="text-xs text-secondary">{flight.origin}</span>
@@ -90,7 +90,7 @@ export default function FlightCard({ flight }: FlightCardProps) {
               <div className="flex items-center justify-end gap-2 mt-1">
                 <span className="text-xl font-bold text-foreground">{formatTime(flight.arrivalTime)}</span>
               </div>
-              <p className="text-xs text-secondary mt-0.5">Landing</p>
+              <p className="text-[11px] text-secondary mt-0.5">{formatDate(flight.arrivalTime)}</p>
               <div className="flex items-center justify-end gap-1 mt-1">
                 <Plane className="w-3 h-3 text-secondary" />
                 <span className="text-xs text-secondary">{flight.destination}</span>
