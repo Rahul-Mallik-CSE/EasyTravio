@@ -1,4 +1,4 @@
-export const FLIGHTS_PAGE_SIZE = 10
+export const FLIGHTS_PAGE_SIZE = 4
 
 export const paginate = <T,>(items: T[], page: number, limit: number) => {
   const safePage = Math.max(1, page)

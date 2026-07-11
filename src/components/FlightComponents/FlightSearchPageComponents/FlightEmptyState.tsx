@@ -1,5 +1,5 @@
 import React from 'react'
-import { Plane, SearchX, WifiOff } from 'lucide-react'
+import {  SearchX} from 'lucide-react'
 
 export default function FlightEmptyState() {
   return (

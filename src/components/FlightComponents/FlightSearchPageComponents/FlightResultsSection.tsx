@@ -1,6 +1,6 @@
 'use client'
-import  { useMemo } from 'react'
-import {  ChevronRight, Plane } from 'lucide-react'
+import { useMemo, useRef, useEffect, useCallback } from 'react'
+import { Plane } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import FlightFilterSidebar from './FlightFilterSidebar'
 import FlightSortBar from './FlightSortBar'
@@ -14,6 +14,8 @@ export default function FlightResultsSection() {
   const { flights, meta, status, loadMoreStatus } = useAppSelector((state) => state.search)
   const { filters, sortBy } = useAppSelector((state) => state.filters)
 
+  const sentinelRef = useRef<HTMLDivElement>(null)
+
   const filteredAndSorted = useMemo(() => {
     const filtered = filterFlights(flights, filters)
     return sortFlights(filtered, sortBy)
@@ -24,6 +26,29 @@ export default function FlightResultsSection() {
   const hasSearched = status !== 'idle'
   const isEmpty = hasSearched && !isLoading && filteredAndSorted.length === 0
   const hasMore = meta?.hasMore ?? false
+
+  const handleLoadMore = useCallback(() => {
+    if (hasMore && !isLoadingMore) {
+      dispatch(loadMoreFlights())
+    }
+  }, [hasMore, isLoadingMore, dispatch])
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          handleLoadMore()
+        }
+      },
+      { rootMargin: '200px' }
+    )
+
+    observer.observe(sentinel)
+    return () => observer.disconnect()
+  }, [handleLoadMore])
 
   return (
     <section className="w-full max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
@@ -95,20 +120,18 @@ export default function FlightResultsSection() {
                 ))}
               </div>
 
-              <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-                
+              {/* Loading more indicator */}
+              {isLoadingMore && (
+                <div className="flex justify-center py-6">
+                  <div className="flex items-center gap-3 text-sm text-secondary">
+                    <div className="w-5 h-5 rounded-full border-2 border-muted border-t-theme animate-spin" />
+                    Loading more flights…
+                  </div>
+                </div>
+              )}
 
-                {hasMore && (
-                  <button
-                    onClick={() => dispatch(loadMoreFlights())}
-                    disabled={isLoadingMore}
-                    className="flex items-center gap-2 bg-theme text-white px-6 py-2.5 rounded-sm text-sm font-semibold hover:bg-blue-700 transition-colors cursor-pointer disabled:opacity-50"
-                  >
-                    {isLoadingMore ? 'Loading...' : 'See More Results'}
-                    {!isLoadingMore && <ChevronRight className="w-4 h-4" />}
-                  </button>
-                )}
-              </div>
+              {/* Sentinel element for infinite scroll */}
+              {hasMore && <div ref={sentinelRef} className="h-1" />}
             </>
           ) : (
             <div className="flex flex-col items-center justify-center py-20 gap-4">

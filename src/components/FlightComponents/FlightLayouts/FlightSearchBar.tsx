@@ -67,9 +67,15 @@ export default function FlightSearchBar() {
     })
   }, [origin])
 
-  // Auto-search on mount when on search page (reload or direct navigation)
+  const hasAutoSearched = useRef(false)
+
   useEffect(() => {
-    if (!isSearchPage) return
+    if (!isSearchPage) {
+      hasAutoSearched.current = false
+      return
+    }
+    if (hasAutoSearched.current) return
+    hasAutoSearched.current = true
 
     const urlOrigin = urlSearchParams.get('origin')
     const urlDest = urlSearchParams.get('destination')
@@ -90,19 +96,16 @@ export default function FlightSearchBar() {
       dispatch(updateSearchParams(params))
       dispatch(searchFlights(params))
     } else {
-      // No URL params — auto-search with defaults (today's date)
-      const defaultOriginCode = AIRPORTS[0].code
-      const defaultDestCode = AIRPORTS[1].code
       const params: SearchParams = {
-        origin: defaultOriginCode,
-        destination: defaultDestCode,
+        origin: AIRPORTS[0].code,
+        destination: AIRPORTS[1].code,
         date: today,
         passengers: 1,
       }
       dispatch(updateSearchParams(params))
       dispatch(searchFlights(params))
     }
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isSearchPage, today, urlSearchParams, dispatch])
 
   const totalPassengers = passengers.adults + passengers.children + passengers.infants
   const selectedPassengerLabel =
