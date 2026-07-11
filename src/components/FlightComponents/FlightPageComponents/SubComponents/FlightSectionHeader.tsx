@@ -1,11 +1,12 @@
 
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 interface FlightSectionHeaderProps {
   eyebrow?: string
   title: string
   subtitle?: string
   actionLabel?: string
+  href?: string
   className?: string
   titleClassName?: string
   subtitleClassName?: string
@@ -17,6 +18,7 @@ const FlightSectionHeader = ({
   title,
   subtitle,
   actionLabel,
+  href,
   className = '',
   titleClassName = '',
   subtitleClassName = '',
@@ -39,12 +41,12 @@ const FlightSectionHeader = ({
       </div>
 
       {actionLabel ? (
-        <Button
-          type="button"
-          className="h-11 w-full rounded-sm border border-theme bg-white px-8 text-base font-semibold text-theme shadow-none transition-colors hover:bg-theme hover:text-white sm:w-auto md:min-w-48"
+        <Link
+          href={href ?? '/flight/search'}
+          className="inline-flex h-11 w-full items-center justify-center rounded-sm border border-theme bg-white px-8 text-base font-semibold text-theme shadow-none transition-colors hover:bg-theme hover:text-white sm:w-auto md:min-w-48"
         >
           {actionLabel}
-        </Button>
+        </Link>
       ) : null}
     </div>
   )

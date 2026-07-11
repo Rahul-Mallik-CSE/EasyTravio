@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 import { fallIntoTravelImages } from '@/data/FlightLandingPageData'
 import FlightGalleryCard from './FlightGalleryCard'
 
@@ -31,15 +31,15 @@ const BackPackingContent = () => {
               </p>
             </div>
 
-            <Button
-              type="button"
-              className="h-10  w-full rounded-sm border border-theme bg-white px-8 text-base font-semibold text-theme transition-colors hover:bg-theme hover:text-white  sm:text-lg lg:w-full"
+            <Link
+              href="/flight/search"
+              className="inline-flex h-10 w-full items-center justify-center rounded-sm border border-theme bg-white px-8 text-base font-semibold text-theme transition-colors hover:bg-theme hover:text-white sm:text-lg lg:w-full"
             >
               Book Flight
-            </Button>
+            </Link>
           </div>
 
-            {/* Right side content with a grid of travel inspiration images.*/}
+          {/* Right side content with a grid of travel inspiration images.*/}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {fallIntoTravelImages.map((image, index) => (
               <FlightGalleryCard
