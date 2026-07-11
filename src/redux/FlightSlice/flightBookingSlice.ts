@@ -9,6 +9,7 @@ interface BookingFormData {
   cardNumber: string
   cvc: string
   expDate: string
+  bookingForWork: boolean
   paymentMethod: string
 }
 

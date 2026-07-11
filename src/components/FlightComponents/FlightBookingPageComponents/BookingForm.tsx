@@ -87,6 +87,7 @@ export default function BookingForm({ flight }: BookingFormProps) {
     if (form.cardNumber.replace(/\s/g, '').length < 16) newErrors.cardNumber = 'Card number is required'
     if (form.cvc.length < 3) newErrors.cvc = 'CVC is required'
     if (form.expDate.length < 5) newErrors.expDate = 'Expiry date is required'
+    if (!form.bookingForWork) newErrors.bookingForWork = 'Please select Booking For Work'
 
     if (!infoConfirmed) {
       newErrors.infoConfirmed = 'Please confirm your information before proceeding'
@@ -109,6 +110,7 @@ export default function BookingForm({ flight }: BookingFormProps) {
         cardNumber: form.cardNumber,
         cvc: form.cvc,
         expDate: form.expDate,
+        bookingForWork: form.bookingForWork,
         paymentMethod: form.paymentMethod,
       })
     )
@@ -121,17 +123,27 @@ export default function BookingForm({ flight }: BookingFormProps) {
       <PriceDetailsInline flight={flight} />
 
       {/* Booking for work + payment method */}
-      <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-        <label className="flex items-center gap-2 cursor-pointer">
-          <button
-            type="button"
-            onClick={() => updateField('bookingForWork', !form.bookingForWork)}
-            className={`w-5 h-5 rounded-full border-2 flex items-center justify-center cursor-pointer transition-colors shrink-0 ${form.bookingForWork ? 'border-theme bg-theme' : 'border-border'}`}
-          >
-            {form.bookingForWork && <div className="w-2 h-2 rounded-full bg-white" />}
-          </button>
-          <span className="text-sm font-medium text-foreground">Booking For Work</span>
-        </label>
+      <div className="mb-3">
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <button
+              type="button"
+              onClick={() => {
+                updateField('bookingForWork', !form.bookingForWork)
+                if (errors.bookingForWork) {
+                  setErrors((prev) => {
+                    const next = { ...prev }
+                    delete next.bookingForWork
+                    return next
+                  })
+                }
+              }}
+              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center cursor-pointer transition-colors shrink-0 ${form.bookingForWork ? 'border-theme bg-theme' : errors.bookingForWork ? 'border-red-400' : 'border-border'}`}
+            >
+              {form.bookingForWork && <div className="w-2 h-2 rounded-full bg-white" />}
+            </button>
+            <span className="text-sm font-medium text-foreground">Booking For Work <span className="text-red-500">*</span></span>
+          </label>
 
         <div className="flex items-center gap-2">
           <span className="text-xs text-secondary font-medium">Payment Method</span>
@@ -153,6 +165,12 @@ export default function BookingForm({ flight }: BookingFormProps) {
             ))}
           </div>
         </div>
+        </div>
+        {errors.bookingForWork && (
+          <p role="alert" className="text-xs text-red-500 mt-1 flex items-center gap-1 ml-7">
+            <AlertCircle className="w-3 h-3" />{errors.bookingForWork}
+          </p>
+        )}
       </div>
 
       {/* Name fields */}

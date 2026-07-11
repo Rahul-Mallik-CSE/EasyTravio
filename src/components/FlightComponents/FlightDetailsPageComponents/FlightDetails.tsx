@@ -31,7 +31,7 @@ export default function FlightDetails({ flightId }: FlightDetailsProps) {
     }
   }, [flightId, dispatch])
 
-  if (status === 'loading') {
+  if (status === 'loading' || status === 'idle') {
     return (
       <main className="min-h-screen bg-background">
         <div className="max-w-7xl mx-auto px-4 pt-4">

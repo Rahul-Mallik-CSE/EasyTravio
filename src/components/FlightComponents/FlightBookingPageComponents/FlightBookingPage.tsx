@@ -106,7 +106,7 @@ export default function FlightBookingPage({ flightId }: FlightBookingPageProps) 
     }
   }, [isConfirmed, flightId, router])
 
-  if (status === 'loading') {
+  if (status === 'loading' || status === 'idle') {
     return (
       <main className="w-full min-h-screen bg-background py-8">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
