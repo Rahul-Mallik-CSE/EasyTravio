@@ -14,6 +14,7 @@ import TicketNotFoundState from './TicketNotFoundState'
 import TicketRowsTable from './TicketRowsTable'
 import TicketTerms from './TicketTerms'
 import { buildTicketRows } from './ticketShared'
+import { useRouter } from 'next/navigation'
 
 function bookingFlightToTicketFlight(flight: BookingFlight): TicketFlight {
   const [depH, depM] = (flight.departureTime || '12:00').split(':').map(Number)
@@ -53,6 +54,7 @@ function bookingFlightToTicketFlight(flight: BookingFlight): TicketFlight {
 export default function DigitalTicketContent() {
   const [mounted, setMounted] = useState(false)
   const dispatch = useAppDispatch()
+  
   const { flight: bookingFlight, formData, bookingId, isConfirmed } = useAppSelector(
     (state) => state.flightBooking
   )
@@ -125,8 +127,11 @@ export default function DigitalTicketContent() {
     }, 700)
   }
 
+  
   function handleSearchMore() {
+    
     dispatch(resetBookingSession())
+    
   }
 
   return (

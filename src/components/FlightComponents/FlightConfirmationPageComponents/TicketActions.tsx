@@ -13,7 +13,7 @@ export default function TicketActions({ onPrint, onDownload, onSearchMore }: Tic
   return (
     <div className="flex flex-col sm:flex-row items-center gap-3 pt-6 border-t border-card-border">
       <Link
-        href="/"
+        href="/flight/search"
         onClick={onSearchMore}
         className="flex items-center justify-center gap-2 border border-theme text-theme px-8 py-3 rounded-sm font-semibold hover:bg-blue-50 transition-colors text-sm w-full sm:w-auto"
       >
