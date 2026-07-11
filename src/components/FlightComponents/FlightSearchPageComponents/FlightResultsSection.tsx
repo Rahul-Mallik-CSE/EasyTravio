@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import FlightFilterSidebar from './FlightFilterSidebar'
 import FlightSortBar from './FlightSortBar'
 import FlightCard from './FlightCard'
+import StateDisplay from '@/components/CommonComponents/StateDisplay'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { loadMoreFlights } from '@/redux/FlightSlice/searchSlice'
 import { filterFlights, sortFlights } from '@/lib/utils/flightHelpers'
@@ -89,24 +90,18 @@ export default function FlightResultsSection() {
         {/* Results */}
         <div className="flex-1 min-w-0">
           {isLoading ? (
-            <div className="flex flex-col items-center justify-center py-20 gap-4">
-              <div className="relative">
-                <div className="w-16 h-16 rounded-full border-4 border-muted border-t-theme animate-spin" />
-                <Plane className="absolute inset-0 m-auto w-7 h-7 text-theme" />
-              </div>
-              <p className="text-base font-semibold text-foreground">Searching for the best flights…</p>
-              <p className="text-sm text-secondary">Comparing prices from all airlines</p>
-            </div>
+            <StateDisplay
+              icon={Plane}
+              loading
+              title="Searching for the best flights…"
+              subtitle="Comparing prices from all airlines"
+            />
           ) : isEmpty ? (
-            <div className="flex flex-col items-center justify-center py-20 gap-4">
-              <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
-                <Plane className="w-8 h-8 text-secondary" />
-              </div>
-              <p className="text-base font-semibold text-foreground">No flights match your filters</p>
-              <p className="text-sm text-secondary text-center max-w-xs">
-                Try adjusting your filters or search for different dates.
-              </p>
-            </div>
+            <StateDisplay
+              icon={Plane}
+              title="No flights match your filters"
+              subtitle="Try adjusting your filters or search for different dates."
+            />
           ) : hasSearched ? (
             <>
               <FlightSortBar resultCount={filteredAndSorted.length} />
@@ -131,13 +126,11 @@ export default function FlightResultsSection() {
               {hasMore && <div ref={sentinelRef} className="h-1" />}
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center py-20 gap-4">
-              <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
-                <Plane className="w-8 h-8 text-secondary" />
-              </div>
-              <p className="text-base font-semibold text-foreground">Search for flights above</p>
-              <p className="text-sm text-secondary">Enter your origin, destination and travel date to get started.</p>
-            </div>
+            <StateDisplay
+              icon={Plane}
+              title="Search for flights above"
+              subtitle="Enter your origin, destination and travel date to get started."
+            />
           )}
         </div>
       </div>
