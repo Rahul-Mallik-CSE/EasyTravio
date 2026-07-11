@@ -1,6 +1,6 @@
 'use client'
-import { useState, useRef, useMemo } from 'react'
-import { usePathname, useRouter } from 'next/navigation'
+import { useState, useRef, useMemo, useEffect } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import {
   ArrowLeftRight,
   Users,
@@ -12,13 +12,14 @@ import {
   X,
 } from 'lucide-react'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { searchFlights, updateSearchParams } from '@/redux/FlightSlice/searchSlice'
+import { searchFlights, updateSearchParams, resetSearch } from '@/redux/FlightSlice/searchSlice'
 import { resetFilters } from '@/redux/FlightSlice/filtersSlice'
 import { AIRPORTS } from '@/lib/mock/flightGenerator'
 import type { SearchParams } from '@/types/FlightAllTypes'
 
-const POPULAR_ORIGINS = AIRPORTS.map((a) => `${a.city} (${a.code})`).sort()
-const POPULAR_DESTINATIONS = AIRPORTS.map((a) => `${a.city} (${a.code})`).sort()
+const ALL_CITIES = AIRPORTS.map((a) => `${a.city} (${a.code})`).sort()
+const DEFAULT_ORIGIN = `${AIRPORTS[0].city} (${AIRPORTS[0].code})`
+const DEFAULT_DESTINATION = `${AIRPORTS[1].city} (${AIRPORTS[1].code})`
 const CABIN_CLASSES = ['Economy', 'Premium Economy', 'Business', 'First Class']
 
 export default function FlightSearchBar() {
@@ -26,6 +27,7 @@ export default function FlightSearchBar() {
   const searchParams = useAppSelector((state) => state.search.params)
   const pathname = usePathname()
   const router = useRouter()
+  const urlSearchParams = useSearchParams()
   const isSearchPage = pathname === '/flight/search'
 
   const today = useMemo(() => new Date().toISOString().split('T')[0], [])
@@ -35,9 +37,9 @@ export default function FlightSearchBar() {
     return d.toISOString().split('T')[0]
   }, [])
 
-  const [origin, setOrigin] = useState(searchParams.origin)
-  const [destination, setDestination] = useState(searchParams.destination)
-  const [departDate, setDepartDate] = useState(searchParams.date)
+  const [origin, setOrigin] = useState(searchParams.origin || DEFAULT_ORIGIN)
+  const [destination, setDestination] = useState(searchParams.destination || DEFAULT_DESTINATION)
+  const [departDate, setDepartDate] = useState(searchParams.date || today)
   const [passengers, setPassengers] = useState({ adults: searchParams.passengers || 1, children: 0, infants: 0 })
   const [cabinClass, setCabinClass] = useState('')
   const [tripType, setTripType] = useState<'one-way' | 'round-trip'>('one-way')
@@ -47,6 +49,60 @@ export default function FlightSearchBar() {
   const [showDestDropdown, setShowDestDropdown] = useState(false)
   const [departDateFocused, setDepartDateFocused] = useState(false)
   const passengerRef = useRef<HTMLDivElement>(null)
+
+  // Filter dropdowns to exclude the selected counterpart
+  const originOptions = useMemo(() => {
+    const destCode = destination.split('(')[1]?.replace(')', '').trim()
+    return ALL_CITIES.filter((c) => {
+      const code = c.split('(')[1]?.replace(')', '').trim()
+      return code !== destCode
+    })
+  }, [destination])
+
+  const destOptions = useMemo(() => {
+    const originCode = origin.split('(')[1]?.replace(')', '').trim()
+    return ALL_CITIES.filter((c) => {
+      const code = c.split('(')[1]?.replace(')', '').trim()
+      return code !== originCode
+    })
+  }, [origin])
+
+  // Auto-search on mount when on search page (reload or direct navigation)
+  useEffect(() => {
+    if (!isSearchPage) return
+
+    const urlOrigin = urlSearchParams.get('origin')
+    const urlDest = urlSearchParams.get('destination')
+    const urlDate = urlSearchParams.get('date')
+    const urlPassengers = urlSearchParams.get('passengers')
+
+    if (urlOrigin && urlDest && urlDate) {
+      const params: SearchParams = {
+        origin: urlOrigin.toUpperCase(),
+        destination: urlDest.toUpperCase(),
+        date: urlDate,
+        passengers: urlPassengers ? Math.max(1, Number(urlPassengers)) : 1,
+      }
+      setOrigin(`${AIRPORTS.find((a) => a.code === params.origin)?.city ?? params.origin} (${params.origin})`)
+      setDestination(`${AIRPORTS.find((a) => a.code === params.destination)?.city ?? params.destination} (${params.destination})`)
+      setDepartDate(params.date)
+      setPassengers({ adults: params.passengers, children: 0, infants: 0 })
+      dispatch(updateSearchParams(params))
+      dispatch(searchFlights(params))
+    } else {
+      // No URL params — auto-search with defaults (today's date)
+      const defaultOriginCode = AIRPORTS[0].code
+      const defaultDestCode = AIRPORTS[1].code
+      const params: SearchParams = {
+        origin: defaultOriginCode,
+        destination: defaultDestCode,
+        date: today,
+        passengers: 1,
+      }
+      dispatch(updateSearchParams(params))
+      dispatch(searchFlights(params))
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const totalPassengers = passengers.adults + passengers.children + passengers.infants
   const selectedPassengerLabel =
@@ -86,10 +142,10 @@ export default function FlightSearchBar() {
   }
 
   function handleClearSearch() {
-    const todayStr = today
-    setOrigin('')
-    setDestination('')
-    setDepartDate('')
+    const todayStr = new Date().toISOString().split('T')[0]
+    setOrigin(DEFAULT_ORIGIN)
+    setDestination(DEFAULT_DESTINATION)
+    setDepartDate(todayStr)
     setPassengers({ adults: 1, children: 0, infants: 0 })
     setCabinClass('')
     setTripType('one-way')
@@ -98,14 +154,18 @@ export default function FlightSearchBar() {
     setShowDestDropdown(false)
     dispatch(resetFilters())
 
-    const fallbackParams: SearchParams = {
-      origin: 'DAC',
-      destination: 'DXB',
-      date: todayStr,
-      passengers: 1,
+    if (isSearchPage) {
+      const params: SearchParams = {
+        origin: AIRPORTS[0].code,
+        destination: AIRPORTS[1].code,
+        date: todayStr,
+        passengers: 1,
+      }
+      dispatch(updateSearchParams(params))
+      dispatch(searchFlights(params))
+    } else {
+      dispatch(resetSearch())
     }
-    dispatch(updateSearchParams(fallbackParams))
-    dispatch(searchFlights(fallbackParams))
   }
 
   function adjustPassenger(type: 'adults' | 'children' | 'infants', delta: number) {
@@ -163,7 +223,7 @@ export default function FlightSearchBar() {
               />
               {showOriginDropdown && (
                 <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-md shadow-lg z-50 overflow-hidden max-h-64 overflow-y-auto">
-                  {POPULAR_ORIGINS.filter((c) =>
+                  {originOptions.filter((c) =>
                     c.toLowerCase().includes(origin.toLowerCase().trim())
                   ).map((city) => (
                     <button
@@ -209,7 +269,7 @@ export default function FlightSearchBar() {
               />
               {showDestDropdown && (
                 <div className="absolute top-full left-0 right-0 mt-1 bg-card border border-border rounded-md shadow-lg z-50 overflow-hidden max-h-64 overflow-y-auto">
-                  {POPULAR_DESTINATIONS.filter((c) =>
+                  {destOptions.filter((c) =>
                     c.toLowerCase().includes(destination.toLowerCase().trim())
                   ).map((city) => (
                     <button

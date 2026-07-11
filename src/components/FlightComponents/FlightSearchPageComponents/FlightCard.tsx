@@ -6,15 +6,15 @@ import type { Flight } from '@/types/FlightAllTypes'
 import { formatDuration, formatTime, getStopsLabel } from '@/lib/utils/flightHelpers'
 
 const AIRLINE_IMAGES: Record<string, string> = {
-  'Biman Bangladesh': 'https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&h=300&fit=crop',
-  'Emirates': 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=400&h=300&fit=crop',
-  'Qatar Airways': 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop',
-  'Singapore Airlines': 'https://images.unsplash.com/photo-1474302770737-173ee21bad6e?w=400&h=300&fit=crop',
-  'AirAsia': 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400&h=300&fit=crop',
-  'Turkish Airlines': 'https://images.unsplash.com/photo-1583996023488-6c4c60ca3c86?w=400&h=300&fit=crop',
+  'Biman Bangladesh': 'https://images.unsplash.com/photo-1559268950-2d7ceb2efe2c?w=400&h=300&fit=crop',
+  'Emirates': 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h=300&fit=crop',
+  'Qatar Airways': 'https://images.unsplash.com/photo-1474302770737-173ee21bad6e?w=400&h=300&fit=crop',
+  'Singapore Airlines': 'https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&h=300&fit=crop',
+  'AirAsia': 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=400&h=300&fit=crop',
+  'Turkish Airlines': 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?w=400&h=300&fit=crop',
 }
 
-const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&h=300&fit=crop'
+const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1559268950-2d7ceb2efe2c?w=400&h=300&fit=crop'
 
 const BAGGAGE_OPTIONS = ['20kg Checked', '23kg Checked', '25kg Checked', '30kg Checked', 'Cabin Only']
 
