@@ -1,36 +1,38 @@
 'use client'
-import type { Flight } from '@/types/FlightAllTypes'
+import type { HotelDetail } from '@/types/HotelSearchPageTypes'
 import { useAppDispatch } from '@/redux/hooks'
-import { setBookingFormData, confirmBooking } from '@/redux/FlightSlice/flightBookingSlice'
+import { setHotelBookingFormData, confirmHotelBooking } from '@/redux/HotelSlice/hotelBookingSlice'
 import BookingForm, { type BookingFormData } from '@/components/CommonComponents/BookingForm'
 
-interface FlightBookingFormProps {
-  flight: Flight
+interface HotelBookingFormProps {
+  hotel: HotelDetail
 }
 
-function PriceDetailsInline({ flight }: { flight: Flight }) {
+function PriceDetailsInline({ hotel }: { hotel: HotelDetail }) {
   return (
     <div className="bg-card border border-card-border rounded-lg p-4 mb-6">
       <p className="font-bold text-foreground mb-3">Price Details</p>
       <div className="flex items-center gap-3 text-sm flex-wrap">
-        <span className="text-theme font-bold">${flight.price}</span>
-        <span className="text-secondary">Per Person</span>
+        <span className="text-theme font-bold">${hotel.pricePerNight}</span>
+        <span className="text-secondary">Per Night</span>
       </div>
       <div className="border-t border-card-border mt-3 pt-3 flex items-center justify-between">
-        <span className="text-sm font-semibold text-foreground">Starting From (USD)</span>
-        <span className="text-xl font-bold text-theme">${flight.price}</span>
+        <span className="text-sm font-semibold text-foreground">
+          Total ({hotel.nights} Night{hotel.nights > 1 ? 's' : ''})
+        </span>
+        <span className="text-xl font-bold text-theme">${hotel.pricePerNight * hotel.nights}</span>
       </div>
     </div>
   )
 }
 
-export default function FlightBookingForm({ flight }: FlightBookingFormProps) {
+export default function HotelBookingForm({ hotel }: HotelBookingFormProps) {
   const dispatch = useAppDispatch()
 
   const handleSubmit = async (formData: BookingFormData) => {
     await new Promise((resolve) => setTimeout(resolve, 1500))
     dispatch(
-      setBookingFormData({
+      setHotelBookingFormData({
         firstName: formData.firstName,
         lastName: formData.lastName,
         phone: formData.phone,
@@ -42,12 +44,12 @@ export default function FlightBookingForm({ flight }: FlightBookingFormProps) {
         paymentMethod: formData.paymentMethod,
       })
     )
-    dispatch(confirmBooking())
+    dispatch(confirmHotelBooking())
   }
 
   return (
     <BookingForm
-      priceSection={<PriceDetailsInline flight={flight} />}
+      priceSection={<PriceDetailsInline hotel={hotel} />}
       onSubmit={handleSubmit}
     />
   )

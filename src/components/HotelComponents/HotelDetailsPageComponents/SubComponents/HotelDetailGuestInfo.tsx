@@ -1,5 +1,6 @@
 'use client'
 import React from 'react'
+import Link from 'next/link'
 import { IoLocationOutline } from 'react-icons/io5'
 import { Button } from '@/components/ui/button'
 import { Heart } from 'lucide-react'
@@ -56,7 +57,7 @@ const HotelDetailGuestInfo: React.FC<HotelDetailGuestInfoProps> = ({ hotel }) =>
       <div>
         <div className="mb-4">
           <p className="text-sm text-primary font-semibold">
-            {hotel.adults} Adults, {hotel.children} Children, {hotel.nights} Nights | {hotel.rooms || 2} Rooms, {bedTypeLabel[hotel.bedType] || hotel.bedType}
+            {hotel.adults} Adults, {hotel.children} Children, {hotel.nights} Nights | Rooms, {bedTypeLabel[hotel.bedType] || hotel.bedType}
           </p>
         </div>
 
@@ -91,9 +92,11 @@ const HotelDetailGuestInfo: React.FC<HotelDetailGuestInfoProps> = ({ hotel }) =>
         </div>
 
         <div className="w-full flex items-center justify-center mt-6">
-          <Button className="w-74 h-9 md:h-11 bg-theme hover:bg-theme/90 text-white font-bold px-8 py-2.5 rounded-md">
-            Book Now
-          </Button>
+          <Link href={`/hotel/${hotel.id}/book`} className="w-74">
+            <Button className="w-full h-9 md:h-11 bg-theme hover:bg-theme/90 text-white font-bold px-8 py-2.5 rounded-md">
+              Book Now
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
