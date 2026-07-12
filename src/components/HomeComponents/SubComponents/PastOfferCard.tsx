@@ -2,18 +2,21 @@
 
 import { PastOffer } from "@/types/HomePageTypes";
 import Image from "next/image";
-import React, { useState } from "react";
-import { FaRegHeart } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 interface PastOfferCardProps {
   offer: PastOffer;
 }
 
 const PastOfferCard: React.FC<PastOfferCardProps> = ({ offer }) => {
-  const [favorited, setFavorited] = useState(offer.isFavorited ?? false);
+  const router = useRouter();
 
   return (
-    <div className="bg-white rounded-sm p-2 overflow-hidden border border-card-border shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col">
+    <div
+      onClick={() => router.push(offer.href || '/hotel/search')}
+      className="bg-white rounded-sm p-2 overflow-hidden border border-card-border shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col cursor-pointer"
+    >
       {/* Image Container */}
       <div className="relative w-full aspect-4/3 overflow-hidden rounded-sm">
         <Image
@@ -24,24 +27,11 @@ const PastOfferCard: React.FC<PastOfferCardProps> = ({ offer }) => {
           height={300}
         />
 
-        {/* Heart / Favorite Button */}
-        <button
-          onClick={() => setFavorited(!favorited)}
-          className="absolute cursor-pointer top-3 left-3 w-7 h-7 rounded-full bg-tertiary backdrop-blur-sm flex items-center justify-center shadow hover:bg-white transition-colors duration-200 z-10"
-          aria-label="Add to favorites"
-        >
-          <FaRegHeart
-            className={`w-4 h-4 transition-colors duration-200 ${
-              favorited ? "text-red-500" : "text-white"
-            }`}
-          />
-        </button>
-
         {/* Bottom overlay: review count + rating */}
         <div className="absolute bottom-0 left-0 right-0 px-2 py-1.5 flex items-center justify-between bg-black/30 backdrop-blur-sm">
-          <span className="text-white text-sm font-bold">{offer.reviewCount}</span>
+          <span className="text-white text-sm font-bold">{offer.reviewCount.toLocaleString()} Reviews</span>
           <span className="border border-secondary text-secondary text-xs font-semibold px-1 py-0.5 rounded">
-            {offer.rating.toFixed(1).replace(".", ",")}
+            {offer.rating.toFixed(1)}
           </span>
         </div>
       </div>

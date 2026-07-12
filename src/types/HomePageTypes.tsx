@@ -19,4 +19,5 @@ export interface PastOffer {
   reviewCount: number;
   rating: number;
   isFavorited?: boolean;
+  href?: string;
 }

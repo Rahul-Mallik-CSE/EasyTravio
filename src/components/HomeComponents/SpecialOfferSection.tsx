@@ -1,91 +1,57 @@
+'use client'
+
 import Image from 'next/image'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 import { IoArrowForward } from 'react-icons/io5'
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
-import { Label } from '../ui/label'
+import { specialOffers } from '@/data/HomePageData'
 
-const offers = [
-  {
-    title: 'Beach Escape',
-    image: '/HomePageImages/SpecialOfferImages/Photo 1.png',
-    spanClassName: 'md:col-span-5',
-    
-  },
-  {
-    title: 'Coastal Views',
-    image: '/HomePageImages/SpecialOfferImages/Photo 2.png',
-    spanClassName: 'md:col-span-3',
-    
-  },
-  {
-    title: 'Road Trip',
-    image: '/HomePageImages/SpecialOfferImages/Photo 3.png',
-    spanClassName: 'md:col-span-4',
-    
-  },
-  {
-    title: 'Lake Adventure',
-    image: '/HomePageImages/SpecialOfferImages/Photo 4.png',
-    spanClassName: 'md:col-span-6',
-    
-  },
-  {
-    title: 'Paris Nights',
-    image: '/HomePageImages/SpecialOfferImages/Photo 5.png',
-    spanClassName: 'md:col-span-3',
-   
-  },
-  {
-    title: 'Desert Safari',
-    image: '/HomePageImages/SpecialOfferImages/Photo 6.png',
-    spanClassName: 'md:col-span-3',
-   
-  },
-]
-
-const filterTabs = ['All', 'Hotels', 'Flights', 'Multi']
+const filterTabs = ['All', 'Hotels', 'Flights', 'Multi'] as const
 
 const SpecialOfferSection = () => {
+  const router = useRouter()
+  const [activeFilter, setActiveFilter] = useState<string>('All')
+
+  const getFilteredOffers = () => {
+    if (activeFilter === 'All') return specialOffers
+    if (activeFilter === 'Hotels') return specialOffers.filter((o) => o.href.includes('hotel'))
+    if (activeFilter === 'Flights') return specialOffers.filter((o) => o.href.includes('flight'))
+    return specialOffers
+  }
+
   return (
-    <section className="w-full bg-background py-2 sm:py-4 sm:pt-6 md:pt-12 md:py-6">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8 ">
-        <div className="mb-4 sm:mb-5 md:mb-6">
-           {/* Section Title */}
+    <section className="w-full bg-background py-6 sm:py-8 md:py-12">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8">
+        <div className="mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-[28px] md:text-[32px] font-extrabold tracking-tight text-primary leading-none">
             Special Offers
           </h2>
-            {/* Filter Tabs */}
-          <RadioGroup 
-            defaultValue={filterTabs[0]} // Sets the first tab as default active
-            className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-3 sm:gap-x-5 md:gap-x-6"
-          >
+
+          {/* Filter Tabs */}
+          <div className="mt-4 flex flex-wrap items-center gap-2">
             {filterTabs.map((tab) => (
-              <div 
-                key={tab} 
-                className="group inline-flex items-center gap-2 text-sm md:text-base font-medium text-primary/90 transition-colors hover:text-theme"
+              <button
+                key={tab}
+                onClick={() => setActiveFilter(tab)}
+                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer ${
+                  activeFilter === tab
+                    ? 'bg-theme text-white shadow-md shadow-theme/20'
+                    : 'bg-gray-100 text-secondary hover:bg-gray-200'
+                }`}
               >
-                <RadioGroupItem 
-                  value={tab} 
-                  id={tab}
-                  className="h-5 w-5 border-secondary/70 bg-background text-theme focus-visible:ring-theme data-[state=checked]:border-theme"
-                />
-                <Label 
-                  htmlFor={tab}
-                  className="cursor-pointer font-medium text-inherit"
-                >
-                  {tab}
-                </Label>
-              </div>
+                {tab}
+              </button>
             ))}
-          </RadioGroup>
+          </div>
         </div>
 
         {/* Offers Grid */}
-        <div className="grid grid-cols-1 gap-1 rounded-sm overflow-hidden md:grid-cols-12 ">
-          {offers.map((offer) => (
+        <div className="grid grid-cols-1 gap-1 rounded-sm overflow-hidden md:grid-cols-12">
+          {getFilteredOffers().map((offer) => (
             <article
               key={offer.title}
-              className={`group relative h-50 sm:h-55 md:h-69.5 overflow-hidden   ${offer.spanClassName}`}
+              className={`group relative h-50 sm:h-55 md:h-69.5 overflow-hidden cursor-pointer ${offer.spanClassName}`}
+              onClick={() => router.push(offer.href)}
             >
               <Image
                 src={offer.image}
@@ -93,17 +59,16 @@ const SpecialOfferSection = () => {
                 fill
                 sizes="(min-width: 768px) 33vw, 100vw"
                 className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
-                priority={offer.title === 'Beach Escape' || offer.title === 'Lake Adventure'}
               />
 
-              
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
 
               <div className="absolute inset-x-0 bottom-0 flex items-end p-4 md:p-5">
                 <button
                   type="button"
-                  className="inline-flex items-center cursor-pointer gap-3 md:gap-2 lg:gap-3 rounded-sm bg-black/75 px-4 md:px-2 lg:px-4 py-2 text-sm lg:text-base font-medium text-white backdrop-blur-[2px] transition-colors hover:bg-black/85"
+                  className="inline-flex items-center cursor-pointer gap-2 rounded-sm bg-black/75 px-4 py-2 text-sm font-medium text-white backdrop-blur-[2px] transition-colors hover:bg-black/85"
                 >
-                  <span>Deals Discover</span>
+                  <span>{offer.title}</span>
                   <IoArrowForward className="h-4 w-4" />
                 </button>
               </div>
