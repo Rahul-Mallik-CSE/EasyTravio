@@ -185,7 +185,7 @@ export default function FlightSearchBar() {
 
 
   return (
-    <div className="w-full mb-2 md:mb-4 lg:mb-6">
+    <div className="w-full py-2 sm:py-4 md:py-6">
       {/* Hero heading */}
       <div className="mb-6">
         <h1 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">

@@ -37,7 +37,7 @@ const HotelSearchBar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
 
         {/* Heading */}
-        <h2 className="text-theme font-extrabold text-lg sm:text-xl md:text-2xl mb-1">
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight mb-1">
           Where Is Your Next Dream Place?
         </h2>
         <p className="text-theme text-xs md:text-sm mb-6">
@@ -66,7 +66,7 @@ const HotelSearchBar = () => {
         <div className="flex flex-col md:flex-row w-full rounded-sm shadow-md md:shadow-lg overflow-visible">
 
           {/* Place */}
-          <div className="bg-white flex items-center gap-2.5 px-4 min-h-9 md:h-14 border border-border flex-2 min-w-0">
+          <div className="bg-white flex items-center gap-2.5 px-4 min-h-9 md:h-11 border border-border flex-2 min-w-0">
             <FaRegBuilding className="w-5 h-5 text-theme shrink-0" />
             <input
               type="text"
@@ -79,7 +79,7 @@ const HotelSearchBar = () => {
 
           {/* VIP */}
           <div
-            className="bg-white relative flex items-center gap-2.5 px-4 min-h-9 md:h-14 border border-border border-t-0 md:border-t md:border-l-0 flex-1 min-w-0 cursor-pointer"
+            className="bg-white relative flex items-center gap-2.5 px-4 min-h-9 md:h-11 border border-border border-t-0 md:border-t md:border-l-0 flex-1 min-w-0 cursor-pointer"
             onClick={() => setVipDropdownOpen(!vipDropdownOpen)}
             >
             <FaStar className="w-4 h-4 text-theme shrink-0" />
@@ -115,7 +115,7 @@ const HotelSearchBar = () => {
           </div>
           {/* Passengers / Room */}
           <div
-            className="bg-white relative flex items-center gap-2.5 px-4 min-h-9 md:h-14 border border-border border-t-0 md:border-t md:border-l-0 flex-2 min-w-0 cursor-pointer select-none"
+            className="bg-white relative flex items-center gap-2.5 px-4 min-h-9 md:h-11 border border-border border-t-0 md:border-t md:border-l-0 flex-2 min-w-0 cursor-pointer select-none"
             onClick={() => setGuestDropdownOpen(!guestDropdownOpen)}
           >
             <FiUserPlus className="w-5 h-5 text-theme shrink-0" />
@@ -155,7 +155,7 @@ const HotelSearchBar = () => {
           </div>
 
           {/* Check In / Check Out */}
-          <div className="bg-white flex items-center gap-2 px-4 min-h-9 md:h-14 border border-border border-t-0 md:border-t md:border-l-0 flex-2 min-w-0">
+          <div className="bg-white flex items-center gap-2 px-4 min-h-9 md:h-11 border border-border border-t-0 md:border-t md:border-l-0 flex-2 min-w-0">
             <LuCalendarDays className="w-5 h-5 text-theme shrink-0" />
             <input
               type="text"
@@ -181,7 +181,7 @@ const HotelSearchBar = () => {
           {/* Search Button */}
           <Button
             onClick={handleSearch}
-            className="bg-theme hover:bg-theme/90 text-white border border-theme font-bold text-[1rem] px-8 min-h-9 md:h-14 shrink-0 whitespace-nowrap w-full md:w-auto rounded-none md:rounded-r-sm"
+            className="bg-theme hover:bg-theme/90 text-white border border-theme font-bold text-[1rem] px-8 min-h-9 md:h-11 shrink-0 whitespace-nowrap w-full md:w-auto rounded-none md:rounded-r-sm"
           >
             Search
           </Button>
