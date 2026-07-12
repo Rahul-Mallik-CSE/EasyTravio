@@ -3,25 +3,25 @@ import React from 'react'
 
 const banners = [
   {
-    src: '/HotelImages/LandingPageImages/BannerImages/Banner1.png',
+    src: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=80',
     alt: 'Stadium crowd cheering',
     text: 'Reserve Your Hotel, Pursue Your Team',
     row: 1,
   },
   {
-    src: '/HotelImages/LandingPageImages/BannerImages/Banner2.png',
+    src: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&q=80',
     alt: 'Tropical resort pool with ocean view',
     text: 'Subscribe Our Newsletter',
     row: 1,
   },
   {
-    src: '/HotelImages/LandingPageImages/BannerImages/Banner3.png',
+    src: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&q=80',
     alt: 'Cliffside villa with infinity pool',
     text: 'Review Hotel Services Worldwide',
     row: 2,
   },
   {
-    src: '/HotelImages/LandingPageImages/BannerImages/Banner4.png',
+    src: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=800&q=80',
     alt: 'Social media on smartphone',
     text: 'Follow The Latest Tour News',
     row: 2,

@@ -16,15 +16,6 @@ const HotelDestinationCard = ({ card, mobile = false }: HotelDestinationCardProp
     >
      
 
-      <div className="absolute -top-3 -left-3.5  z-10">
-        <Image
-          src="/images/Tag.png"
-          alt="Featured"
-          width={100}
-          height={50}
-        />
-      </div>
-
       <div className={`flex ${mobile ? 'gap-3 p-1' : 'gap-2 p-2 pr-4'}`}>
         <div className={`relative shrink-0 overflow-hidden rounded-[10px] ${mobile ? 'h-20 w-20' : 'h-18 w-18 sm:h-24 sm:w-31'}`}>
           <Image src={card.image} alt={card.title} fill sizes="112px" className="object-cover object-center" />

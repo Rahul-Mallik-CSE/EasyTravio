@@ -21,7 +21,7 @@ const HotelHeroSection = () => {
       <div className="mx-auto w-full ">
         <div className="relative overflow-hidden h-100 sm:h-120 md:h-166 shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
           <Image
-            src="/HotelImages/LandingPageImages/HotelHeroImages/HotelHeroBanner.png"
+            src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=80"
             alt="Hotel hero banner"
             fill
             priority

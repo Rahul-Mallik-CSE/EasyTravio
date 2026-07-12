@@ -1,23 +1,10 @@
-import BannerSection from '@/components/HotelComponents/HotelLandingPageComponents/BannerSection'
-import ComprasionSection from '@/components/HotelComponents/HotelLandingPageComponents/ComprasionSection'
-import HotelHeroSection from '@/components/HotelComponents/HotelLandingPageComponents/HotelHeroSection'
-import OffersSection from '@/components/HotelComponents/HotelLandingPageComponents/OffersSection'
-import ReviewSection from '@/components/HotelComponents/HotelLandingPageComponents/ReviewSection'
-import React from 'react'
+
+import HotelLandingPage from '@/components/HotelComponents/HotelLandingPageComponents/HotelLandingPage'
+
 
 const HotelPage = () => {
   return (
-    <div className="w-full min-h-screen bg-transparent">
-      <HotelHeroSection />
-
-      <OffersSection />
-
-      <ComprasionSection />
-
-      <ReviewSection />
-
-      <BannerSection />
-    </div>
+    <HotelLandingPage/>
   )
 }
 

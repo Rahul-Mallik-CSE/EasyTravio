@@ -6,13 +6,13 @@ const sectionTitle = "Make A Comprasion"
 const comprasionData = [
   {
     id: 1,
-    image: "/HotelImages/LandingPageImages/ComprasionImages/Photo Left.png",
+    image: "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80",
     caption:
       "The Past Offers With The Highest Reviews Outshine Others, Standing As A Testament To Their Exceptional Quality.",
   },
   {
     id: 2,
-    image: "/HotelImages/LandingPageImages/ComprasionImages/Photo Right.png",
+    image: "https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?w=800&q=80",
     caption:
       "Ring In The New Year With Iconic Moments And Unforgettable Memories In New York City",
   },
