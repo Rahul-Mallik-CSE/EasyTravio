@@ -69,6 +69,8 @@ export default function HotelDigitalTicketContent() {
   const totalPrice = bookingHotel.pricePerNight * bookingHotel.nights
 
   async function createTicketPdfUrl() {
+    if (!bookingHotel) return ''
+
     const [{ pdf }, { default: HotelTicketPdfDocument }] = await Promise.all([
       import('@react-pdf/renderer'),
       import('./Pdf/HotelTicketPdfDocument'),
