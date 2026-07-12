@@ -31,7 +31,7 @@ function StarRating({ count = 5 }: { count?: number }) {
 }
 
 const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
-  const [favorited, setFavorited] = useState(hotel.favourite);
+
 
   return (
     <div className="bg-white p-2 rounded-sm shadow-sm border border-gray-200 flex flex-col sm:flex-row overflow-visible max-h-none sm:max-h-64 hover:shadow-md transition-shadow duration-200 relative">
@@ -49,7 +49,7 @@ const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
       )}
 
       {/* Image Section */}
-      <div className="relative w-full sm:w-44 lg:w-50 shrink-0 aspect-4/3 md:aspect-auto md:h-auto overflow-hidden">
+      <div className="relative w-full sm:w-44 lg:w-50 shrink-0 aspect-4/3 md:aspect-auto h-48 md:h-auto overflow-hidden">
         <Image
           src={hotel.image}
           alt={hotel.name}
@@ -57,18 +57,7 @@ const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
           width={400}
           height={300}
         />
-        {/* Heart Button */}
-        <button
-          onClick={() => setFavorited(!favorited)}
-          className="absolute cursor-pointer top-3 left-3 w-7 h-7 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center shadow hover:bg-white/80 transition-colors duration-200 z-10"
-          aria-label="Add to favorites"
-        >
-          {favorited ? (
-            <FaHeart className="w-4 h-4 text-red-500" />
-          ) : (
-            <FaRegHeart className="w-4 h-4 text-white" />
-          )}
-        </button>
+        
 
         {/* Bottom overlay: stars + rating */}
         <div className="absolute bottom-0 left-0 right-0 sm:rounded-bl-sm px-2 py-1.5 flex items-center justify-between bg-black/30 backdrop-blur-sm">
