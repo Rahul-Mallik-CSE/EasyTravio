@@ -1,4 +1,4 @@
-import type { HotelSearchItem } from '@/types/HotelSearchPageTypes'
+import type { HotelSearchItem, HotelDetail, HotelReview, HotelFAQ } from '@/types/HotelSearchPageTypes'
 
 export const MOCK_HOTEL_COUNT = 200
 
@@ -106,6 +106,65 @@ const UNSPLASH_IMAGES = [
   'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&q=80',
 ]
 
+const GALLERY_IMAGES = [
+  'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&q=80',
+  'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&q=80',
+  'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&q=80',
+  'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80',
+  'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=80',
+]
+
+const DESCRIPTIONS = [
+  'This stylish and roomy family home is nestled in the heart of the city, just minutes away from the Royal Opera, Museum of Medieval Stockholm, and Stockholm Cathedral. The central location makes it an ideal base for exploring the city. For convenience, Bromma Stockholm Airport is the closest airport, located just 8 km away from this charming home.',
+  'Your stay at our hotel includes a complimentary breakfast to kickstart your day, and our rooms feature a cozy and comfortable retreat. Select rooms feature a refrigerator and stovetop for those who prefer to prepare their own meals. Our dedicated staff is at your service, ensuring a seamless and enjoyable experience throughout your stay.',
+  'Nestled in a prime waterfront location, this exceptional property offers breathtaking views and unparalleled comfort. The hotel features modern amenities including a state-of-the-art fitness center, infinity pool, and world-class dining. Every detail has been thoughtfully curated to make your stay special.',
+  'Experience the perfect blend of luxury and convenience at this centrally located hotel. With easy access to major attractions, shopping districts, and cultural landmarks, youll never run out of things to do. The hotel offers spacious rooms with premium bedding and modern amenities.',
+  'Discover a tranquil oasis in the heart of the bustling city. This boutique hotel combines Scandinavian design with warm hospitality. Enjoy our complimentary wellness center, artisanal breakfast, and personalized concierge service that will make your stay unforgettable.',
+]
+
+const RULES = [
+  'Check-in is from 3:00 PM and check-out is until 11:00 AM.',
+  'Pets are not allowed on the premises.',
+  'Smoking is prohibited in all indoor areas.',
+  'Guests must present a valid ID at check-in.',
+  'Quiet hours are observed from 10:00 PM to 8:00 AM.',
+  'The hotel reserves the right to pre-authorize credit cards.',
+]
+
+const FAQ_QUESTIONS: Omit<HotelFAQ, 'id'>[] = [
+  { question: 'How And When Do I Pay?', answer: 'Since this option is a non-refundable reservation and there is no cancellation opportunity, payment is usually processed at the time of booking or shortly thereafter.' },
+  { question: 'Is There Anti-Allergic Meal?', answer: 'Yes, our restaurant offers anti-allergic meal options. Please inform our staff about your dietary requirements at the time of booking or upon arrival.' },
+  { question: 'Does The Hotel Have A Pool?', answer: 'Yes, our hotel features both an indoor heated pool and an outdoor seasonal pool. The indoor pool is open year-round from 6:00 AM to 10:00 PM.' },
+  { question: 'Any Identification Documents Is Necessary', answer: 'Yes, a valid government-issued photo ID is required at check-in. For international guests, a passport is required.' },
+  { question: 'What Are The Check-In And Check-Out Times?', answer: 'Check-in is available from 3:00 PM onwards. Check-out must be completed by 11:00 AM. Early check-in and late check-out may be available upon request.' },
+  { question: 'Why Was I Charged?', answer: 'Charges may include room reservation, taxes, and any additional services used during your stay. Please review your receipt or contact our front desk for a detailed breakdown.' },
+  { question: 'Is There A Spa?', answer: 'Yes, our hotel features a full-service spa offering massages, facials, and wellness treatments. Spa appointments can be arranged through the front desk.' },
+]
+
+const REVIEW_NAMES = ['Sofia', 'Sebastian', 'Maria', 'Lena', 'Martin', 'Erik', 'Anna', 'Lars']
+const REVIEW_COUNTRIES = ['SE', 'DE', 'FR', 'NO', 'FI', 'DK', 'NL', 'CH']
+const REVIEW_AVATARS = [
+  'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80',
+  'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80',
+  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80',
+  'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80',
+  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80',
+  'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80',
+  'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80',
+  'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80',
+]
+
+const REVIEW_DESCRIPTIONS = [
+  'Our time at this hotel was marked by contemporary elegance and thoughtful amenities.',
+  'The location was great, and the services were awesome. Everything made our stay super enjoyable.',
+  'The hotel exceeded expectations with comfortable rooms, excellent services, and a delightful restaurant. Highly enjoyable!',
+  'The hotel was really nice, especially because of the fancy pool and tasty breakfast. It made our stay feel special.',
+  'For those seeking a blend of luxury and technology, this hotel is a dream come true.',
+  'A wonderful stay with impeccable service. The staff went above and beyond to make us feel welcome.',
+  'Beautiful rooms with stunning views. The spa facilities were exceptional and the dining experience was top-notch.',
+  'Perfect location for exploring the city. The concierge service was incredibly helpful and professional.',
+]
+
 const hashString = (value: string): number => {
   let hash = 0
   for (let i = 0; i < value.length; i++) {
@@ -137,7 +196,7 @@ const getRatingLabel = (rating: number): string => {
   return 'Poor'
 }
 
-const createTemplateHotel = (cityIndex: number, chainIndex: number, index: number): HotelSearchItem => {
+const createTemplateHotel = (cityIndex: number, chainIndex: number, index: number): HotelDetail => {
   const seed = hashString(`${cityIndex}-${chainIndex}-${index}`)
   const city = CITIES[cityIndex]
   const chain = HOTEL_CHAINS[chainIndex]
@@ -178,6 +237,38 @@ const createTemplateHotel = (cityIndex: number, chainIndex: number, index: numbe
   const children = seededRandom(seed + 25) > 0.5 ? seed % 3 : 0
   const nights = 1 + (seed % 7)
 
+  const streetNames = ['Storgatan', 'Kungsgatan', 'Drottninggatan', 'Vasagatan', 'Hamngatan', 'Odengatan', 'Birger Jarlsgatan', 'Götgatan']
+  const streetNumber = 1 + (seed % 50)
+
+  const galleryStart = (imageIndex + 1) % GALLERY_IMAGES.length
+  const gallery = [
+    UNSPLASH_IMAGES[imageIndex],
+    ...Array.from({ length: 4 }, (_, i) => GALLERY_IMAGES[(galleryStart + i) % GALLERY_IMAGES.length]),
+  ]
+
+  const selectedAmenities = ['Free Wifi', 'Bathroom', 'Air Conditioning']
+  if (hasPool) selectedAmenities.push('Swimming Pool')
+  if (hasFitness) selectedAmenities.push('Fitness Center')
+  if (hasBar) selectedAmenities.push('Bar & Lounge')
+  if (hasSauna) selectedAmenities.push('Spa & Wellness')
+  if (hasBreakfast) selectedAmenities.push('Restaurant')
+  selectedAmenities.push('Room Service', 'Tea/Coffee Machine', 'Parking Available')
+
+  const reviewCount2 = 5 + (seed % 4)
+  const reviews: HotelReview[] = Array.from({ length: reviewCount2 }, (_, i) => ({
+    id: i + 1,
+    name: pick(REVIEW_NAMES, seed + 30 + i),
+    countryCode: pick(REVIEW_COUNTRIES, seed + 40 + i),
+    avatarImage: pick(REVIEW_AVATARS, seed + 50 + i),
+    description: pick(REVIEW_DESCRIPTIONS, seed + 60 + i),
+    date: `2026-${String(1 + (seed + i) % 12).padStart(2, '0')}-${String(1 + (seed + i) % 28).padStart(2, '0')}`,
+  }))
+
+  const faqs: HotelFAQ[] = FAQ_QUESTIONS.map((faq, i) => ({
+    id: i + 1,
+    ...faq,
+  }))
+
   return {
     id: buildHotelId(cityIndex, chainIndex, index),
     name: chain,
@@ -217,11 +308,29 @@ const createTemplateHotel = (cityIndex: number, chainIndex: number, index: numbe
     bar: hasBar,
     steamBath: hasSteamBath,
     yoga: hasYoga,
+    address: `${streetNumber} ${pick(streetNames, seed + 26)}, ${city.name}, ${city.country}`,
+    phone: `+${seed % 90 + 10}-${seed % 900 + 100}-${seed % 9000 + 1000}`,
+    email: `info@${chain.toLowerCase().replace(/[^a-z]/g, '')}.com`,
+    description: pick(DESCRIPTIONS, seed + 27),
+    gallery,
+    amenities: selectedAmenities,
+    checkInTime: '3:00 PM',
+    checkOutTime: '11:00 AM',
+    rules: RULES,
+    faqs,
+    reviews,
+    reviewRates: {
+      staffPoliteness: 7 + Math.round(seededRandom(seed + 70) * 3 * 10) / 10,
+      vipOptions: 7 + Math.round(seededRandom(seed + 71) * 3 * 10) / 10,
+      freeWifiSpeed: 6 + Math.round(seededRandom(seed + 72) * 4 * 10) / 10,
+      cleanliness: 5 + Math.round(seededRandom(seed + 73) * 5 * 10) / 10,
+      accessToCityCenter: 7 + Math.round(seededRandom(seed + 74) * 3 * 10) / 10,
+    },
   }
 }
 
-export const buildMockHotelCatalog = (count = MOCK_HOTEL_COUNT): HotelSearchItem[] => {
-  const hotels: HotelSearchItem[] = []
+export const buildMockHotelCatalog = (count = MOCK_HOTEL_COUNT): HotelDetail[] => {
+  const hotels: HotelDetail[] = []
   let index = 0
 
   while (hotels.length < count) {
@@ -234,9 +343,9 @@ export const buildMockHotelCatalog = (count = MOCK_HOTEL_COUNT): HotelSearchItem
   return hotels.slice(0, count)
 }
 
-let catalogCache: HotelSearchItem[] | null = null
+let catalogCache: HotelDetail[] | null = null
 
-export const getMockHotelCatalog = (): HotelSearchItem[] => {
+export const getMockHotelCatalog = (): HotelDetail[] => {
   catalogCache ??= buildMockHotelCatalog()
   return catalogCache
 }
@@ -253,6 +362,6 @@ export const generateHotelsForSearch = (destination: string): HotelSearchItem[] 
   )
 }
 
-export const findHotelById = (id: string): HotelSearchItem | undefined => {
+export const findHotelById = (id: string): HotelDetail | undefined => {
   return getMockHotelCatalog().find((hotel) => hotel.id === id)
 }

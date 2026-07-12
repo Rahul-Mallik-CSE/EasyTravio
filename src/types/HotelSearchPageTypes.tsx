@@ -90,3 +90,39 @@ export interface HotelFilters {
   stars: 'any' | '5' | '4' | '3'
   distance: 'any' | '1km' | '5km' | '15km'
 }
+
+export interface HotelReview {
+  id: number
+  name: string
+  countryCode: string
+  avatarImage: string
+  description: string
+  date: string
+}
+
+export interface HotelFAQ {
+  id: number
+  question: string
+  answer: string
+}
+
+export interface HotelDetail extends HotelSearchItem {
+  address: string
+  phone: string
+  email: string
+  description: string
+  gallery: string[]
+  amenities: string[]
+  checkInTime: string
+  checkOutTime: string
+  rules: string[]
+  faqs: HotelFAQ[]
+  reviews: HotelReview[]
+  reviewRates: {
+    staffPoliteness: number
+    vipOptions: number
+    freeWifiSpeed: number
+    cleanliness: number
+    accessToCityCenter: number
+  }
+}

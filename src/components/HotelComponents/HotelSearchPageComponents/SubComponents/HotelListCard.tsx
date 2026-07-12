@@ -141,9 +141,9 @@ const HotelListCard: React.FC<HotelListCardProps> = ({ hotel }) => {
             </div>
 
             <Link
-              href={hotel.available ? '#' : '#'}
+              href={`/hotel/${hotel.id}`}
               className={`flex items-center gap-1 text-sm md:text-xs lg:text-sm font-bold pl-3 py-0 rounded-lg transition-colors duration-200 whitespace-nowrap ${
-                hotel.available ? 'text-theme' : 'text-gray-400'
+                hotel.available ? 'text-theme' : 'text-theme'
               }`}
             >
               See Availability

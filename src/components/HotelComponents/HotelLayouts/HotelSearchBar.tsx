@@ -260,20 +260,23 @@ const HotelSearchBarInner = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex">
+          <div className="flex w-full md:w-auto ">
             <Button
               onClick={handleSearch}
-              className="bg-theme hover:bg-theme/90 text-white border border-theme font-bold text-[1rem] px-6 min-h-9 md:h-11 shrink-0 whitespace-nowrap rounded-none md:rounded-r-sm flex items-center gap-2"
+              className="bg-theme w-full md:w-none hover:bg-theme/90 text-white border border-theme font-bold text-[1rem] px-6 min-h-9 md:h-11 shrink-0 whitespace-nowrap rounded-none  flex items-center gap-2"
             >
               <Search className="w-4 h-4" />
               Search
             </Button>
+            
+          </div>
+          <div className="flex w-full md:w-auto ">
             <Button
               onClick={handleClear}
               variant="outline"
-              className="border border-border font-bold text-[1rem] px-4 min-h-9 md:h-11 shrink-0 whitespace-nowrap rounded-none md:rounded-r-sm flex items-center gap-2 hover:bg-muted"
+              className="border border-border w-full md:w-none font-bold text-[1rem] px-4 min-h-9 md:h-11 shrink-0 whitespace-nowrap rounded-none md:rounded-r-sm flex items-center gap-2 hover:bg-muted"
             >
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4" /> Clear
             </Button>
           </div>
         </div>

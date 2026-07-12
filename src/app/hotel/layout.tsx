@@ -1,4 +1,4 @@
-import HotelSearchBar from '@/components/HotelComponents/HotelSearchBar'
+import HotelSearchBar from '@/components/HotelComponents/HotelLayouts/HotelSearchBar'
 import React, { Suspense } from 'react'
 
 const HotelLayout = ({ children }: { children: React.ReactNode }) => {

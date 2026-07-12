@@ -5,6 +5,7 @@ import flightDetailReducer from './FlightSlice/flightDetailSlice'
 import flightBookingReducer from './FlightSlice/flightBookingSlice'
 import hotelSearchReducer from './HotelSlice/hotelSearchSlice'
 import hotelFiltersReducer from './HotelSlice/hotelFiltersSlice'
+import hotelDetailReducer from './HotelSlice/hotelDetailSlice'
 
 export const makeStore = () =>
   configureStore({
@@ -15,6 +16,7 @@ export const makeStore = () =>
       flightBooking: flightBookingReducer,
       hotelSearch: hotelSearchReducer,
       hotelFilters: hotelFiltersReducer,
+      hotelDetail: hotelDetailReducer,
     },
   })
 
