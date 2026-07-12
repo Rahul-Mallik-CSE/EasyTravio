@@ -2,82 +2,91 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
-import { IoArrowForward } from 'react-icons/io5'
-import { specialOffers } from '@/data/HomePageData'
+import React from 'react'
+import { Building2, Plane, ArrowRight } from 'lucide-react'
 
-const filterTabs = ['All', 'Hotels', 'Flights', 'Multi'] as const
+const categories = [
+  {
+    title: 'Hotels & Stays',
+    subtitle: 'Find your perfect accommodation worldwide',
+    image: 'https://images.unsplash.com/photo-1584971496095-c7aa56c3519b?w=900&q=80',
+    href: '/hotel/search',
+    icon: Building2,
+    color: 'from-theme/80 to-theme/40',
+  },
+  {
+    title: 'Flights & Travel',
+    subtitle: 'Book flights to your dream destination',
+    image: 'https://images.unsplash.com/photo-1772195021919-f5c9df8d26d1?w=900&q=80',
+    href: '/flight/search',
+    icon: Plane,
+    color: 'from-blue-600/80 to-blue-400/40',
+  },
+]
 
-const SpecialOfferSection = () => {
+const ExploreSection = () => {
   const router = useRouter()
-  const [activeFilter, setActiveFilter] = useState<string>('All')
-
-  const getFilteredOffers = () => {
-    if (activeFilter === 'All') return specialOffers
-    if (activeFilter === 'Hotels') return specialOffers.filter((o) => o.href.includes('hotel'))
-    if (activeFilter === 'Flights') return specialOffers.filter((o) => o.href.includes('flight'))
-    return specialOffers
-  }
 
   return (
     <section className="w-full bg-background py-6 sm:py-8 md:py-12">
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* Section Header */}
         <div className="mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-[28px] md:text-[32px] font-extrabold tracking-tight text-primary leading-none">
-            Special Offers
+            Where Do You Want To Go?
           </h2>
-
-          {/* Filter Tabs */}
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            {filterTabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveFilter(tab)}
-                className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 cursor-pointer ${
-                  activeFilter === tab
-                    ? 'bg-theme text-white shadow-md shadow-theme/20'
-                    : 'bg-gray-100 text-secondary hover:bg-gray-200'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
-          </div>
+          <p className="text-sm md:text-base text-secondary mt-1">
+            Choose your next adventure
+          </p>
         </div>
 
-        {/* Offers Grid */}
-        <div className="grid grid-cols-1 gap-1 rounded-sm overflow-hidden md:grid-cols-12">
-          {getFilteredOffers().map((offer) => (
-            <article
-              key={offer.title}
-              className={`group relative h-50 sm:h-55 md:h-69.5 overflow-hidden cursor-pointer ${offer.spanClassName}`}
-              onClick={() => router.push(offer.href)}
-            >
-              <Image
-                src={offer.image}
-                alt={offer.title}
-                fill
-                sizes="(min-width: 768px) 33vw, 100vw"
-                className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
-              />
+        {/* Two Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {categories.map((cat) => {
+            const Icon = cat.icon
+            return (
+              <div
+                key={cat.title}
+                onClick={() => router.push(cat.href)}
+                className="group relative h-64 sm:h-72 md:h-80 rounded-xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300"
+              >
+                {/* Background Image */}
+                <Image
+                  src={cat.image}
+                  alt={cat.title}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                />
 
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors" />
+                {/* Gradient Overlay */}
+                <div className={`absolute inset-0 bg-gradient-to-t ${cat.color} via-black/20 to-transparent`} />
 
-              <div className="absolute inset-x-0 bottom-0 flex items-end p-4 md:p-5">
-                <button
-                  type="button"
-                  className="inline-flex items-center cursor-pointer gap-2 rounded-sm bg-black/75 px-4 py-2 text-sm font-medium text-white backdrop-blur-[2px] transition-colors hover:bg-black/85"
-                >
-                  <span>{offer.title}</span>
-                  <IoArrowForward className="h-4 w-4" />
-                </button>
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-white" />
+                    </div>
+                    <h3 className="text-white text-xl sm:text-2xl md:text-3xl font-extrabold drop-shadow-md">
+                      {cat.title}
+                    </h3>
+                  </div>
+                  <p className="text-white/80 text-sm md:text-base mb-4 max-w-xs">
+                    {cat.subtitle}
+                  </p>
+                  <div className="inline-flex items-center gap-2 text-white font-semibold text-sm group-hover:gap-3 transition-all">
+                    <span>Explore Now</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </div>
               </div>
-            </article>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
   )
 }
 
-export default SpecialOfferSection
+export default ExploreSection

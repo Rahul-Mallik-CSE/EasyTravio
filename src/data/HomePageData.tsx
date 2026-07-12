@@ -124,7 +124,7 @@ export const trendingDestinations: TrendingDestination[] = [
 ];
 
 export const pastOffers: PastOffer[] = [
-  { id: 1, type: "Flight",      image: "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&q=80",      reviewCount: 2450, rating: 8.2, href: "/flight/search" },
+  { id: 1, type: "Flight",      image: "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?w=400&q=80",      reviewCount: 2450, rating: 8.2, href: "/flight/search" },
   { id: 2, type: "Beach Resort", image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&q=80",    reviewCount: 1830, rating: 8.8, href: "/hotel/search" },
   { id: 3, type: "Hotel",       image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=80",       reviewCount: 3210, rating: 9.1, href: "/hotel/search" },
   { id: 4, type: "Package",     image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&q=80",     reviewCount: 1567, rating: 8.5, href: "/hotel/search" },
