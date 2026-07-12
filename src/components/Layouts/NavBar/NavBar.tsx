@@ -2,146 +2,164 @@
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import React, { useState } from "react"
-import { CiSearch } from "react-icons/ci"
+import React, { useState, useEffect, useRef, useCallback } from "react"
 import { GiHamburgerMenu } from "react-icons/gi"
 
 const NavBar = () => {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [scrolled, setScrolled] = useState(false)
+  const lastScrollY = useRef(0)
   const pathname = usePathname()
 
   const pills = [
-    { label: 'Trip', href: '#trip' },
-    { label: '%Deals', href: '#deals' },
+    { label: 'Home', href: '/' },
     { label: 'Hotel', href: '/hotel' },
     { label: 'Flight', href: '/flight' },
-    { label: 'Apartment', href: '#apartment' },
-    { label: 'Camper', href: '#camper' },
   ]
 
   const isActivePill = (href: string) => {
+    if (href === '/') return pathname === '/'
     if (href === '/hotel') return pathname?.startsWith('/hotel') ?? false
     if (href === '/flight') return pathname?.startsWith('/flight') ?? false
     return false
   }
 
-  const pillClassName = (active: boolean) =>
-    `px-4 py-1 cursor-pointer rounded-full border transition-colors ${active ? 'bg-theme text-white border-theme shadow' : 'bg-white text-secondary border-border hover:border-theme hover:text-theme'}`
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY
+
+    setScrolled(currentScrollY > 10)
+
+    if (currentScrollY <= 0) {
+      setVisible(true)
+    } else if (currentScrollY < lastScrollY.current) {
+      setVisible(true)
+    } else if (currentScrollY > lastScrollY.current) {
+      setVisible(false)
+    }
+
+    lastScrollY.current = currentScrollY
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
+
 
   return (
-    <header className="w-full bg-background z-50">
+    <header
+      className={`w-full z-50 transition-all duration-200 ease-in-out ${
+        scrolled
+          ? 'bg-background/95 backdrop-blur-md shadow-sm border-b border-border/50'
+          : 'bg-background'
+      } ${visible ? 'translate-y-0' : '-translate-y-full'}`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Left: logo + small icons */}
-          <div className="flex items-center gap-4">
-            <Link href="/" className=" items-center gap-3">
-              <div className="w-10 h-10 relative mx-auto">
-                <Image src="/logo.png" alt="EasyTravio" fill sizes="48px" style={{ objectFit: "contain" }} />
-              </div>
-              <div className="hidden sm:block">
-                <div className="text-theme font-bold text-base">EasyTravio</div>
-              </div>
-            </Link>
+        <div className="flex items-center justify-between h-16 md:h-18">
+          {/* Left: Logo */}
+          <Link href="/" className="flex items-center gap-2.5 shrink-0">
+            <div className="w-9 h-9 relative">
+              <Image src="/logo.png" alt="EasyTravio" fill sizes="36px" style={{ objectFit: "contain" }} />
+            </div>
+            <span className="text-theme font-extrabold text-lg tracking-tight hidden sm:block">
+              EasyTravio
+            </span>
+          </Link>
 
-            <div className="hidden sm:flex items-center gap-3">
-              <button aria-label="help" className="w-5 h-5 font-bold rounded-full flex items-center justify-center border border-theme text-theme">?</button>
-              <button aria-label="lang" className="w-5 h-5 rounded-full flex items-center justify-center border border-none overflow-hidden">
-                <Image src="/united-kingdom.png" alt="Language" width={16} height={16} 
-                className="w-6 h-6 object-cover" />
+          {/* Center: Navigation Tabs */}
+          <nav className="hidden md:flex border border-border items-center gap-3 bg-white rounded-full px-3 py-2">
+            {pills.map((pill) => {
+              const active = isActivePill(pill.href)
+              return (
+                <Link
+                  key={pill.label}
+                  href={pill.href}
+                  className={`px-5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 ${
+                    active
+                      ? 'bg-theme text-white shadow-md shadow-theme/20'
+                      : 'text-secondary hover:text-primary hover:bg-white/80'
+                  }`}
+                >
+                  {pill.label}
+                </Link>
+              )
+            })}
+          </nav>
+
+          {/* Right: Auth Buttons + Mobile Toggle */}
+          <div className="flex items-center gap-2.5">
+            <div className="hidden sm:flex items-center gap-2">
+              <button className="px-5 py-1.5 cursor-pointer rounded-full border border-theme text-theme font-semibold text-sm hover:bg-theme hover:text-white transition-all duration-200">
+                Sign In
+              </button>
+              <button className="px-5 py-1.5 cursor-pointer rounded-full bg-theme text-white font-semibold text-sm border border-theme hover:bg-theme/90 transition-all duration-200">
+                Register
               </button>
             </div>
-          </div>
 
-          {/* Center: search (hidden on very small screens) */}
-          <div className="flex-1 px-6">
-            <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <input
-                  type="search"
-                  placeholder="Search"
-                  className="w-full border border-border rounded-sm py-1 pl-4 pr-10 text-secondary placeholder:font-semibold placeholder:text-secondary shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-200"
-                />
-                <div className="absolute right-3 top-1/2 -translate-y-1/2 text-secondary cursor-pointer">
-                  <CiSearch className="w-5 h-5 font-semibold" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: auth buttons + mobile toggle */}
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-3">
-              <button className="py-2 px-8 md:px-12 cursor-pointer rounded-sm border border-theme text-theme font-semibold">Sing In</button>
-              <button className="py-2 px-8 md:px-12 cursor-pointer rounded-sm border border-theme text-theme font-semibold">Register</button>
-            </div>
-
-            <div className="sm:hidden">
+            <div className="md:hidden">
               <button
                 onClick={() => setMobileOpen((s) => !s)}
                 aria-label="menu"
-                className="p-1.5 cursor-pointer rounded-md border border-theme"
+                className="p-2 cursor-pointer rounded-lg border border-border hover:border-theme transition-colors"
               >
-                <GiHamburgerMenu className="w-6 h-6 text-theme" />
+                <GiHamburgerMenu className="w-5 h-5 text-theme" />
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Pills row */}
-      <nav className="pt-2 pb-6 hidden sm:block">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-4 lg:gap-6 flex-wrap">
-            {pills.map((pill) => {
-              const active = isActivePill(pill.href)
-              return (
-                <Link key={pill.label} href={pill.href} className={pillClassName(active)}>
-                  {pill.label}
-                </Link>
-              )
-            })}
-          </div>
-        </div>
-      </nav>
-
       {/* Mobile popup menu */}
       {mobileOpen && (
-        <div className="sm:hidden fixed inset-x-0 top-0 z-50 bg-black/40 backdrop-blur-[2px]" onClick={() => setMobileOpen(false)}>
+        <div className="md:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" onClick={() => setMobileOpen(false)}>
           <div
-            className="w-full border-b border-border bg-background px-4 py-4 shadow-2xl"
+            className="w-full bg-background px-4 py-5 shadow-2xl animate-in slide-in-from-top duration-200"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-center justify-between">
-              
-
+            <div className="flex items-center justify-between mb-5">
+              <span className="text-theme font-extrabold text-lg">EasyTravio</span>
               <button
                 onClick={() => setMobileOpen(false)}
                 aria-label="close menu"
-                className="flex ml-auto cursor-pointer h-6 w-6 items-center justify-center rounded-full border border-border text-foreground"
+                className="w-8 h-8 flex items-center justify-center rounded-full border border-border text-foreground hover:bg-muted transition-colors cursor-pointer"
               >
                 ×
               </button>
             </div>
 
-            <div className="mt-4 flex flex-col gap-3">
-              <button className="w-full cursor-pointer rounded-xl border border-theme px-4 py-1.5 font-semibold text-theme">Sing In</button>
-              <button className="w-full cursor-pointer rounded-xl border border-theme bg-background px-4 py-1.5 font-semibold text-theme">Register</button>
-
-              <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col gap-3">
+              {/* Nav links */}
+              <div className="grid grid-cols-3 gap-2">
                 {pills.map((pill) => {
                   const active = isActivePill(pill.href)
-
                   return (
                     <Link
                       key={pill.label}
                       href={pill.href}
-                      className={`rounded-full cursor-pointer border px-4 py-1.5 text-sm font-medium text-center transition-colors ${active ? 'border-theme bg-theme text-white' : 'border-border bg-white text-secondary hover:border-theme hover:text-theme'}`}
+                      className={`rounded-full cursor-pointer border px-4 py-2 text-sm font-semibold text-center transition-all duration-200 ${
+                        active
+                          ? 'border-theme bg-theme text-white shadow-md'
+                          : 'border-border bg-white text-secondary hover:border-theme hover:text-theme'
+                      }`}
                       onClick={() => setMobileOpen(false)}
                     >
                       {pill.label}
                     </Link>
                   )
                 })}
+              </div>
+
+              {/* Auth buttons */}
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <button className="cursor-pointer rounded-full border border-theme px-4 py-2 font-semibold text-theme text-sm hover:bg-theme/5 transition-colors">
+                  Sign In
+                </button>
+                <button className="cursor-pointer rounded-full border border-theme bg-theme px-4 py-2 font-semibold text-white text-sm hover:bg-theme/90 transition-colors">
+                  Register
+                </button>
               </div>
             </div>
           </div>
