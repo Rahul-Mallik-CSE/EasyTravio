@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import React, { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import HotelHeroTabs from './SubComponents/HotelHeroTabs'
 import HotelDestinationCard from './SubComponents/HotelDestinationCard'
 import type {  HotelHeroTabKey } from '@/types/HotelLandingPageTypes'
@@ -10,6 +11,7 @@ import { cards, mapByTab, tabs } from '@/data/HotelLandingPageData'
 
 const HotelHeroSection = () => {
   const [activeTab, setActiveTab] = useState<HotelHeroTabKey>('special-offers')
+  const router = useRouter()
 
   const visibleCards = useMemo(
     () => cards.filter((card) => card.categoryKeys.includes(activeTab) && mapByTab[activeTab].includes(card.id)),
@@ -37,6 +39,7 @@ const HotelHeroSection = () => {
               </h2>
               <button
                 type="button"
+                onClick={() => router.push('/hotel/search')}
                 className="mt-3 cursor-pointer inline-flex items-center gap-3 rounded-sm bg-theme px-6 py-0.5 text-sm md:text-base  text-white shadow-lg transition-colors hover:bg-theme/90"
               >
                 <span>Explore More</span>

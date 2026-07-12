@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
+import { useRouter } from 'next/navigation'
 import type { HotelDestinationCardData } from '@/types/HotelLandingPageTypes'
 
 interface HotelDestinationCardProps {
@@ -8,13 +9,23 @@ interface HotelDestinationCardProps {
 }
 
 const HotelDestinationCard = ({ card, mobile = false }: HotelDestinationCardProps) => {
+  const router = useRouter()
+
   return (
     <article
-      className={`relative overflow-visible rounded-sm border border-white/70 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] ${
+      onClick={() => router.push(`/hotel/search?destination=${encodeURIComponent(card.title)}`)}
+      className={`relative overflow-visible rounded-sm border border-white/70 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.12)] cursor-pointer hover:shadow-lg transition-shadow ${
         mobile ? 'w-full' : 'max-w-[320px] sm:max-w-85'
       }`}
     >
-     
+      <div className="absolute -top-3 -left-3.5  z-10">
+        <Image
+          src="/images/Tag.png"
+          alt="Featured"
+          width={100}
+          height={50}
+        />
+      </div>
 
       <div className={`flex ${mobile ? 'gap-3 p-1' : 'gap-2 p-2 pr-4'}`}>
         <div className={`relative shrink-0 overflow-hidden rounded-[10px] ${mobile ? 'h-20 w-20' : 'h-18 w-18 sm:h-24 sm:w-31'}`}>

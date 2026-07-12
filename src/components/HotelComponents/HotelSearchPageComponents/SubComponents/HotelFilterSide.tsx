@@ -1,25 +1,26 @@
-"use client";
-import React from "react";
-import { Slider } from "@/components/ui/slider";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+'use client'
+import React from 'react'
+import { Slider } from '@/components/ui/slider'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { ChevronDown } from "lucide-react";
-import { FilterState } from "@/types/HotelSearchPageTypes";
+} from '@/components/ui/collapsible'
+import { ChevronDown } from 'lucide-react'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { setHotelMinPrice, setHotelMaxPrice, setHotelFilter } from '@/redux/HotelSlice/hotelFiltersSlice'
+import type { HotelFilters } from '@/types/HotelSearchPageTypes'
 
 interface HotelFilterSideProps {
-  filters: FilterState;
-  onFilterChange: (filters: Partial<FilterState>) => void;
+  priceRange: { min: number; max: number }
 }
 
 const SectionHeader = ({ title }: { title: string }) => (
   <h3 className="text-primary font-bold text-sm md:text-base mb-3">{title}</h3>
-);
+)
 
 const FilterCheckbox = ({
   id,
@@ -27,10 +28,10 @@ const FilterCheckbox = ({
   checked,
   onChange,
 }: {
-  id: string;
-  label: string;
-  checked: boolean;
-  onChange: (v: boolean) => void;
+  id: string
+  label: string
+  checked: boolean
+  onChange: (v: boolean) => void
 }) => (
   <div className="flex items-center gap-2 mb-2">
     <Checkbox
@@ -43,41 +44,44 @@ const FilterCheckbox = ({
       {label}
     </Label>
   </div>
-);
+)
 
 const CollapsibleSection = ({
   title,
   children,
 }: {
-  title: string;
-  children: React.ReactNode;
+  title: string
+  children: React.ReactNode
 }) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(true)
   return (
     <Collapsible open={open} onOpenChange={setOpen}>
-      <div className="  pt-4">
+      <div className="pt-4">
         <SectionHeader title={title} />
         <CollapsibleContent>{children}</CollapsibleContent>
         <CollapsibleTrigger asChild>
           <button className="flex cursor-pointer items-center gap-1 text-theme text-xs font-medium mt-1">
             Show More
             <ChevronDown
-              className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`}
+              className={`w-3.5 h-3.5 transition-transform ${open ? 'rotate-180' : ''}`}
             />
           </button>
         </CollapsibleTrigger>
       </div>
     </Collapsible>
-  );
-};
+  )
+}
 
-const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
-  filters,
-  onFilterChange,
-}) => {
+const HotelFilterSide: React.FC<HotelFilterSideProps> = ({ priceRange }) => {
+  const dispatch = useAppDispatch()
+  const filters = useAppSelector((state) => state.hotelFilters.filters)
+
+  const handleFilterChange = (key: keyof HotelFilters, value: unknown) => {
+    dispatch(setHotelFilter({ key, value }))
+  }
+
   return (
     <div className="w-full">
-      {/* Title */}
       <h2 className="text-quaternary font-bold text-lg sm:text-xl md:text-2xl mb-4">
         Filter By
       </h2>
@@ -88,13 +92,14 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
           Your Budget For Per Night
         </p>
         <Slider
-          min={0}
-          max={1000}
+          min={priceRange.min}
+          max={priceRange.max}
           step={10}
-          value={[filters.minPrice, filters.maxPrice]}
-          onValueChange={([min, max]) =>
-            onFilterChange({ minPrice: min, maxPrice: max })
-          }
+          value={[filters.minPrice ?? priceRange.min, filters.maxPrice ?? priceRange.max]}
+          onValueChange={([min, max]) => {
+            dispatch(setHotelMinPrice(min))
+            dispatch(setHotelMaxPrice(max))
+          }}
           className="mb-3"
         />
         <div className="flex md:gap-1 lg:gap-2">
@@ -102,10 +107,8 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
             <span className="flex-1 text-secondary text-[10px] mr-1">Min Price $</span>
             <input
               type="number"
-              value={filters.minPrice}
-              onChange={(e) =>
-                onFilterChange({ minPrice: Number(e.target.value) })
-              }
+              value={filters.minPrice ?? priceRange.min}
+              onChange={(e) => dispatch(setHotelMinPrice(Number(e.target.value)))}
               className="flex-1 w-full text-[10px] text-secondary outline-none bg-transparent"
             />
           </div>
@@ -113,11 +116,9 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
             <span className="flex-1 text-secondary text-[10px] mr-0">Max Price $</span>
             <input
               type="number"
-              value={filters.maxPrice}
-              onChange={(e) =>
-                onFilterChange({ maxPrice: Number(e.target.value) })
-              }
-              className="flex-1 w-full  text-xs text-secondary outline-none bg-transparent"
+              value={filters.maxPrice ?? priceRange.max}
+              onChange={(e) => dispatch(setHotelMaxPrice(Number(e.target.value)))}
+              className="flex-1 w-full text-xs text-secondary outline-none bg-transparent"
             />
           </div>
         </div>
@@ -129,31 +130,31 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
           id="breakfastIncluded"
           label="Breakfast Included"
           checked={filters.breakfastIncluded}
-          onChange={(v) => onFilterChange({ breakfastIncluded: v as boolean })}
+          onChange={(v) => handleFilterChange('breakfastIncluded', v)}
         />
         <FilterCheckbox
           id="allInclusive"
           label="All-Inclusive"
           checked={filters.allInclusive}
-          onChange={(v) => onFilterChange({ allInclusive: v as boolean })}
+          onChange={(v) => handleFilterChange('allInclusive', v)}
         />
         <FilterCheckbox
           id="freeCancellation"
           label="Free Cancellation"
           checked={filters.freeCancellation}
-          onChange={(v) => onFilterChange({ freeCancellation: v as boolean })}
+          onChange={(v) => handleFilterChange('freeCancellation', v)}
         />
         <FilterCheckbox
           id="pool"
           label="Pool"
           checked={filters.pool}
-          onChange={(v) => onFilterChange({ pool: v as boolean })}
+          onChange={(v) => handleFilterChange('pool', v)}
         />
         <FilterCheckbox
           id="petFriendly"
           label="Pet Friendly"
           checked={filters.petFriendly}
-          onChange={(v) => onFilterChange({ petFriendly: v as boolean })}
+          onChange={(v) => handleFilterChange('petFriendly', v)}
         />
       </CollapsibleSection>
 
@@ -163,51 +164,49 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
           id="ownBathroom"
           label="Own Bathroom"
           checked={filters.ownBathroom}
-          onChange={(v) => onFilterChange({ ownBathroom: v as boolean })}
+          onChange={(v) => handleFilterChange('ownBathroom', v)}
         />
         <FilterCheckbox
           id="kitchen"
           label="Kitchen"
           checked={filters.kitchen}
-          onChange={(v) => onFilterChange({ kitchen: v as boolean })}
+          onChange={(v) => handleFilterChange('kitchen', v)}
         />
         <FilterCheckbox
-          id="seeView"
-          label="See View"
-          checked={filters.seeView}
-          onChange={(v) => onFilterChange({ seeView: v as boolean })}
+          id="seaView"
+          label="Sea View"
+          checked={filters.seaView}
+          onChange={(v) => handleFilterChange('seaView', v)}
         />
         <FilterCheckbox
           id="babyBed"
           label="Baby Bed"
           checked={filters.babyBed}
-          onChange={(v) => onFilterChange({ babyBed: v as boolean })}
+          onChange={(v) => handleFilterChange('babyBed', v)}
         />
         <FilterCheckbox
           id="bathtub"
           label="Bathtub"
           checked={filters.bathtub}
-          onChange={(v) => onFilterChange({ bathtub: v as boolean })}
+          onChange={(v) => handleFilterChange('bathtub', v)}
         />
       </CollapsibleSection>
 
       {/* Guest Rating */}
       <div className="pt-4">
-        <SectionHeader title="Gusts Rating" />
+        <SectionHeader title="Guest Rating" />
         <RadioGroup
           value={filters.guestRating}
-          onValueChange={(v) =>
-            onFilterChange({ guestRating: v as FilterState["guestRating"] })
-          }
+          onValueChange={(v) => handleFilterChange('guestRating', v)}
           className="gap-2"
         >
           {[
-            { value: "all", label: "All" },
-            { value: "outstanding", label: "Outstanding 9+" },
-            { value: "veryGood", label: "Very Good 8+" },
-            { value: "good", label: "Good 7+" },
-            { value: "excellent", label: "Excellent" },
-            { value: "poor", label: "Poor" },
+            { value: 'all', label: 'All' },
+            { value: 'outstanding', label: 'Outstanding 9+' },
+            { value: 'veryGood', label: 'Very Good 8+' },
+            { value: 'good', label: 'Good 7+' },
+            { value: 'excellent', label: 'Excellent' },
+            { value: 'poor', label: 'Poor' },
           ].map((opt) => (
             <div key={opt.value} className="flex items-center gap-2">
               <RadioGroupItem
@@ -215,18 +214,12 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
                 id={`gr-${opt.value}`}
                 className="border-gray-300 text-theme data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
-              <Label
-                htmlFor={`gr-${opt.value}`}
-                className="text-gray-500 text-xs cursor-pointer"
-              >
+              <Label htmlFor={`gr-${opt.value}`} className="text-gray-500 text-xs cursor-pointer">
                 {opt.label}
               </Label>
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
-          Show More <ChevronDown className="w-3.5 h-3.5" />
-        </button>
       </div>
 
       {/* Bed Type */}
@@ -234,17 +227,16 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
         <SectionHeader title="Bed Type" />
         <RadioGroup
           value={filters.bedType}
-          onValueChange={(v) =>
-            onFilterChange({ bedType: v as FilterState["bedType"] })
-          }
+          onValueChange={(v) => handleFilterChange('bedType', v)}
           className="gap-2"
         >
           {[
-            { value: "twoSingle", label: "Two Single Beds" },
-            { value: "king", label: "King Beds" },
-            { value: "babyCots", label: "Baby Cots" },
-            { value: "double", label: "Double Bed" },
-            { value: "single", label: "Single Beds" },
+            { value: 'all', label: 'All' },
+            { value: 'twoSingle', label: 'Two Single Beds' },
+            { value: 'king', label: 'King Beds' },
+            { value: 'babyCots', label: 'Baby Cots' },
+            { value: 'double', label: 'Double Bed' },
+            { value: 'single', label: 'Single Beds' },
           ].map((opt) => (
             <div key={opt.value} className="flex items-center gap-2">
               <RadioGroupItem
@@ -252,18 +244,12 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
                 id={`bt-${opt.value}`}
                 className="border-gray-300 data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
-              <Label
-                htmlFor={`bt-${opt.value}`}
-                className="text-gray-500 text-xs cursor-pointer"
-              >
+              <Label htmlFor={`bt-${opt.value}`} className="text-gray-500 text-xs cursor-pointer">
                 {opt.label}
               </Label>
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
-          Show More <ChevronDown className="w-3.5 h-3.5" />
-        </button>
       </div>
 
       {/* Leisure Activities */}
@@ -272,31 +258,31 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
           id="sauna"
           label="Sauna"
           checked={filters.sauna}
-          onChange={(v) => onFilterChange({ sauna: v as boolean })}
+          onChange={(v) => handleFilterChange('sauna', v)}
         />
         <FilterCheckbox
           id="fitnessCentre"
           label="Fitness Centre"
           checked={filters.fitnessCentre}
-          onChange={(v) => onFilterChange({ fitnessCentre: v as boolean })}
+          onChange={(v) => handleFilterChange('fitnessCentre', v)}
         />
         <FilterCheckbox
           id="bar"
           label="Bar"
           checked={filters.bar}
-          onChange={(v) => onFilterChange({ bar: v as boolean })}
+          onChange={(v) => handleFilterChange('bar', v)}
         />
         <FilterCheckbox
           id="steamBath"
           label="Steam Bath"
           checked={filters.steamBath}
-          onChange={(v) => onFilterChange({ steamBath: v as boolean })}
+          onChange={(v) => handleFilterChange('steamBath', v)}
         />
         <FilterCheckbox
           id="yoga"
           label="Yoga"
           checked={filters.yoga}
-          onChange={(v) => onFilterChange({ yoga: v as boolean })}
+          onChange={(v) => handleFilterChange('yoga', v)}
         />
       </CollapsibleSection>
 
@@ -305,16 +291,13 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
         <SectionHeader title="Travel Sustainability" />
         <RadioGroup
           value={filters.sustainabilityLevel}
-          onValueChange={(v) =>
-            onFilterChange({
-              sustainabilityLevel: v as FilterState["sustainabilityLevel"],
-            })
-          }
+          onValueChange={(v) => handleFilterChange('sustainabilityLevel', v)}
           className="gap-2"
         >
           {[
-            { value: "level2", label: "Level 2 And Above 1" },
-            { value: "level3", label: "Level And Above 2" },
+            { value: 'any', label: 'Any' },
+            { value: 'level2', label: 'Level 2 And Above' },
+            { value: 'level3', label: 'Level 3 And Above' },
           ].map((opt) => (
             <div key={opt.value} className="flex items-center gap-2">
               <RadioGroupItem
@@ -322,18 +305,12 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
                 id={`sl-${opt.value}`}
                 className="border-gray-300 data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
-              <Label
-                htmlFor={`sl-${opt.value}`}
-                className="text-gray-500 text-xs cursor-pointer"
-              >
+              <Label htmlFor={`sl-${opt.value}`} className="text-gray-500 text-xs cursor-pointer">
                 {opt.label}
               </Label>
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
-          Show More <ChevronDown className="w-3.5 h-3.5" />
-        </button>
       </div>
 
       {/* Accommodation Classification */}
@@ -341,15 +318,14 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
         <SectionHeader title="Accommodation Classification" />
         <RadioGroup
           value={filters.stars}
-          onValueChange={(v) =>
-            onFilterChange({ stars: v as FilterState["stars"] })
-          }
+          onValueChange={(v) => handleFilterChange('stars', v)}
           className="gap-2"
         >
           {[
-            { value: "5", label: "5 Stars" },
-            { value: "4", label: "4 Stars" },
-            { value: "3", label: "3 Stars" },
+            { value: 'any', label: 'Any' },
+            { value: '5', label: '5 Stars' },
+            { value: '4', label: '4 Stars' },
+            { value: '3', label: '3 Stars' },
           ].map((opt) => (
             <div key={opt.value} className="flex items-center gap-2">
               <RadioGroupItem
@@ -357,18 +333,12 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
                 id={`st-${opt.value}`}
                 className="border-gray-300 data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
-              <Label
-                htmlFor={`st-${opt.value}`}
-                className="text-gray-500 text-xs cursor-pointer"
-              >
+              <Label htmlFor={`st-${opt.value}`} className="text-gray-500 text-xs cursor-pointer">
                 {opt.label}
               </Label>
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
-          Show More <ChevronDown className="w-3.5 h-3.5" />
-        </button>
       </div>
 
       {/* Distance From The Centre */}
@@ -376,15 +346,14 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
         <SectionHeader title="Distance From The Centre" />
         <RadioGroup
           value={filters.distance}
-          onValueChange={(v) =>
-            onFilterChange({ distance: v as FilterState["distance"] })
-          }
+          onValueChange={(v) => handleFilterChange('distance', v)}
           className="gap-2"
         >
           {[
-            { value: "1km", label: "Less Than 1 Km" },
-            { value: "5km", label: "Less Than 5 Km" },
-            { value: "15km", label: "Less Than 15 Km" },
+            { value: 'any', label: 'Any Distance' },
+            { value: '1km', label: 'Less Than 1 Km' },
+            { value: '5km', label: 'Less Than 5 Km' },
+            { value: '15km', label: 'Less Than 15 Km' },
           ].map((opt) => (
             <div key={opt.value} className="flex items-center gap-2">
               <RadioGroupItem
@@ -392,21 +361,15 @@ const HotelFilterSide: React.FC<HotelFilterSideProps> = ({
                 id={`dist-${opt.value}`}
                 className="border-gray-300 data-[state=checked]:border-theme data-[state=checked]:text-theme"
               />
-              <Label
-                htmlFor={`dist-${opt.value}`}
-                className="text-gray-500 text-xs cursor-pointer"
-              >
+              <Label htmlFor={`dist-${opt.value}`} className="text-gray-500 text-xs cursor-pointer">
                 {opt.label}
               </Label>
             </div>
           ))}
         </RadioGroup>
-        <button className="flex items-center gap-1 text-theme cursor-pointer text-xs font-medium mt-2">
-          Show More <ChevronDown className="w-3.5 h-3.5" />
-        </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HotelFilterSide;
+export default HotelFilterSide
