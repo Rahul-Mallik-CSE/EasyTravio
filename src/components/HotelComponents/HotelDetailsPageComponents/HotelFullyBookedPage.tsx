@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { X } from 'lucide-react'
+import { X, ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { HotelDetail } from '@/types/HotelSearchPageTypes'
 
@@ -34,6 +34,26 @@ const HotelFullyBookedPage: React.FC<HotelFullyBookedPageProps> = ({ hotel }) =>
           priority
         />
         <div className="absolute inset-0 bg-black/40" />
+      </div>
+
+      {/* Header with back button */}
+      <div className="absolute top-0 left-0 right-0 z-20 p-4">
+        <div className="max-w-7xl mx-auto flex items-center gap-4">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 hover:bg-white/40 transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-5 h-5 text-white" />
+          </button>
+          <div>
+            <h1 className="text-xl md:text-2xl font-extrabold text-white drop-shadow-lg">
+              {hotel.name}
+            </h1>
+            <p className="text-sm text-white/80 drop-shadow-md">
+              {hotel.location}, {hotel.city}
+            </p>
+          </div>
+        </div>
       </div>
 
       {/* Modal */}

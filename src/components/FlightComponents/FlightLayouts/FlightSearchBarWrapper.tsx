@@ -1,8 +1,8 @@
 'use client'
 
 import { Suspense } from 'react'
-import { usePathname } from 'next/navigation'
 import FlightSearchBar from './FlightSearchBar'
+import { usePathname } from 'next/navigation'
 
 export default function FlightSearchBarWrapper() {
   const pathname = usePathname()

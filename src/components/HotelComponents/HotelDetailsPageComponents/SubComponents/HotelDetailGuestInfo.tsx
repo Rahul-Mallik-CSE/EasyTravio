@@ -87,7 +87,11 @@ const HotelDetailGuestInfo: React.FC<HotelDetailGuestInfoProps> = ({ hotel }) =>
             </div>
           </div>
 
-          <Button className="bg-theme hover:bg-theme/90 text-white font-bold px-8 py-2.5 rounded-md">
+          
+        </div>
+
+        <div className="w-full flex items-center justify-center mt-6">
+          <Button className="w-74 h-9 md:h-11 bg-theme hover:bg-theme/90 text-white font-bold px-8 py-2.5 rounded-md">
             Book Now
           </Button>
         </div>
