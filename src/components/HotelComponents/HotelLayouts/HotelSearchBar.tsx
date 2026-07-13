@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Suspense, useState, useRef, useEffect, useMemo } from 'react'
+import React, { useState, useRef, useEffect, useMemo } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { FaRegBuilding } from 'react-icons/fa'
 import { LuCalendarDays } from 'react-icons/lu'
@@ -286,11 +286,7 @@ const HotelSearchBarInner = () => {
 }
 
 const HotelSearchBar = () => {
-  return (
-    <Suspense>
-      <HotelSearchBarInner />
-    </Suspense>
-  )
+  return <HotelSearchBarInner />
 }
 
 export default HotelSearchBar
