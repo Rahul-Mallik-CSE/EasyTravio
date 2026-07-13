@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import HotelSearchBar from './HotelSearchBar'
+import { Suspense } from 'react'
 
 const HotelSearchBarWrapper = () => {
     const pathname = usePathname()
@@ -9,9 +10,9 @@ const HotelSearchBarWrapper = () => {
 
     if (!showSearchBar) return null
   return (
-    <div>
+    <Suspense>
       <HotelSearchBar />
-    </div>
+    </Suspense>
   )
 }
 
