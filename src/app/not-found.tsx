@@ -1,3 +1,5 @@
+"use client"
+
 import Link from 'next/link'
 import { MapPinOff, Home, Plane, Building2, ArrowLeft } from 'lucide-react'
 
